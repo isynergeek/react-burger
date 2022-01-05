@@ -1,24 +1,17 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import AppHeader from "./components/app-header/AppHeader";
+import {CONSTRUCTOR_ITEM} from "./constants/navItems";
+import AppMain from "./components/app-main/AppMain";
+import BurgerConstructorView from "./components/burger-constructor-view/BurgerConstructorView";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+        <AppHeader activeItem={CONSTRUCTOR_ITEM}/>
+        <AppMain>
+            <BurgerConstructorView/>
+        </AppMain>
     </div>
   );
 }

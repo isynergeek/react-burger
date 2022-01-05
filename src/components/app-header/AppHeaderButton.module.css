@@ -1,0 +1,13 @@
+.button {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    color: var(--text-inactive-color);
+    border-radius: var(--common-border-radius);
+    gap: calc(var(--offset-base-size) * 2);
+    cursor: pointer;
+}
+
+.button_state_active {
+    color: var(--text-color-1);
+}

@@ -1,0 +1,23 @@
+.header {
+    background-color: var(--background);
+    display: flex;
+    justify-content: center;
+
+}
+.nav {
+    width: 1280px;
+    display: flex;
+    justify-content : space-between;
+    align-items: center;
+
+}
+
+.left {
+    flex-grow: 1;
+    flex-basis: 0;
+}
+
+.right {
+    composes: left;
+    text-align: right;
+}
