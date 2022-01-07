@@ -3,10 +3,9 @@ import IngredientsTypeSelection from "./IngredientsTypeSelection";
 import IngredientCard from "./IngredientCard";
 import styles from './BurgerIngredients.module.css';
 import data from "../../utils/data";
-import {BUN_TYPE, MAIN_TYPE, SAUCE_TYPE} from "../../constants/ingredientTypes";
+import {IngredientTypes} from "../../constants/ingredientTypes";
 
-
-const ingredientByType = (type: string) => {
+const ingredientByType = (type: IngredientTypes) => {
     return data.filter(item => item.type === type)
         .map(item => (
             <IngredientCard key={item._id} image={item.image} price={item.price} name={item.name}/>
@@ -20,18 +19,17 @@ const BurgerIngredients = () => {
             <IngredientsTypeSelection/>
             <div className={`${styles.contentWrap} custom-scroll`}>
                 <IngredientsContent title="Булки">
-                    {ingredientByType(BUN_TYPE)}
+                    {ingredientByType(IngredientTypes.BUN)}
                 </IngredientsContent>
 
                 <IngredientsContent title="Соусы">
-                    {ingredientByType(SAUCE_TYPE)}
+                    {ingredientByType(IngredientTypes.SAUCE)}
                 </IngredientsContent>
 
                 <IngredientsContent title="Начинка">
-                    {ingredientByType(MAIN_TYPE)}
+                    {ingredientByType(IngredientTypes.MAIN)}
                 </IngredientsContent>
             </div>
-
         </section>
     )
 }

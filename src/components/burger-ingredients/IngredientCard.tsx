@@ -3,7 +3,14 @@ import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-com
 import PropTypes from 'prop-types';
 
 
-function IngredientCard(props: any) {
+interface IngredientCardPropsType {
+    count?: number,
+    image: string
+    price: number
+    name: string
+}
+
+const IngredientCard = (props: IngredientCardPropsType) => {
     const {count, image, price, name} = props;
     return (
         <div className={styles.main}>

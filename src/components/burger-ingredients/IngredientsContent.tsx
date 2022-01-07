@@ -1,7 +1,12 @@
 import styles from './IngredientsContent.module.css';
 import PropTypes from "prop-types";
 
-const IngredientsContent = (props: { title: any; children: any }) => {
+interface IngredientsContentPropsType {
+    title: string,
+    children: JSX.Element[]
+}
+
+const IngredientsContent = (props: IngredientsContentPropsType) => {
     const {title, children} = props;
     return (
         <section className="mt-10">
@@ -17,6 +22,7 @@ const IngredientsContent = (props: { title: any; children: any }) => {
 
 IngredientsContent.propTypes = {
     title: PropTypes.string.isRequired,
+    children: PropTypes.arrayOf(PropTypes.element)
 };
 
 export default IngredientsContent;

@@ -1,14 +1,19 @@
 import React from 'react';
 import PropTypes from "prop-types";
-import { DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import {DragIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ConstructorItem.module.css';
 
-function ConstructorItem(props: { draggable?: boolean; children: any; }) {
+interface ConstructorItemPropsType {
+    draggable?: boolean;
+    children: JSX.Element;
+}
+
+function ConstructorItem(props: ConstructorItemPropsType) {
     const {draggable = true, children} = props;
     return (
         <section className={styles.main}>
             <div className={styles.dragIcon}>
-                {draggable && <DragIcon type="primary" />}
+                {draggable && <DragIcon type="primary"/>}
             </div>
             <div className={styles.item}>
                 {children}
@@ -18,7 +23,8 @@ function ConstructorItem(props: { draggable?: boolean; children: any; }) {
 }
 
 ConstructorItem.propTypes = {
-    draggable: PropTypes.bool
+    draggable: PropTypes.bool,
+    children: PropTypes.element.isRequired
 }
 
 export default ConstructorItem;

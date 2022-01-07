@@ -1,6 +1,14 @@
 import styles from './AppHeaderButton.module.css';
+import React from "react";
+import PropTypes from "prop-types";
 
-const AppHeaderButton = (props: { text: any; children: any; active?: boolean }) => {
+interface AppHeaderButtonPropsType {
+    text: string;
+    children: JSX.Element,
+    active?: boolean
+}
+
+const AppHeaderButton = (props: AppHeaderButtonPropsType) => {
     const {text, children, active} = props;
     const activeClass = active ? styles.button_state_active : '';
 
@@ -15,4 +23,11 @@ const AppHeaderButton = (props: { text: any; children: any; active?: boolean }) 
         </div>
     );
 };
+
+AppHeaderButton.propTypes = {
+    text: PropTypes.string.isRequired,
+    children: PropTypes.element.isRequired,
+    active: PropTypes.bool
+}
+
 export default AppHeaderButton;

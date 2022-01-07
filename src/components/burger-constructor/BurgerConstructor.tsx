@@ -5,10 +5,11 @@ import data from "../../utils/data";
 
 const TopItem = () => {
     const itemData = data[0];
+    const text = `${itemData.name} (верх)`
     return (
         <div className="mb-4">
             <ConstructorItem draggable={false}>
-                <ConstructorElement type="top" text={itemData.name} thumbnail={itemData.image_mobile} isLocked={true}
+                <ConstructorElement type="top" text={text} thumbnail={itemData.image_mobile} isLocked={true}
                                     price={itemData.price}/>
             </ConstructorItem>
         </div>
@@ -16,11 +17,12 @@ const TopItem = () => {
 };
 
 const BottomItem = () => {
-    const itemData = data[data.length - 1];
+    const itemData = data[0];
+    const text = `${itemData.name} (низ)`
     return (
         <div className="mt-4 mb-10">
             <ConstructorItem draggable={false}>
-                <ConstructorElement type="bottom" text={itemData.name} thumbnail={itemData.image_mobile}
+                <ConstructorElement type="bottom" text={text} thumbnail={itemData.image_mobile}
                                     price={itemData.price} isLocked={true}/>
             </ConstructorItem>
         </div>

@@ -1,11 +1,15 @@
 import styles from './AppMain.module.css';
 
-const AppMain = (props: { children: any; }) => {
+interface AppMainPropsType {
+    children: JSX.Element
+}
+
+const AppMain = (props: AppMainPropsType) => {
     const {children} = props;
     return (
         <main className={styles.main}>
             <div className={styles.content}>
-            {children}
+                {children}
             </div>
         </main>
     );
