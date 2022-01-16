@@ -1,15 +1,13 @@
 import styles from './AppHeaderButton.module.css';
 import React from "react";
-import PropTypes from "prop-types";
 
-interface AppHeaderButtonPropsType {
+type TAppHeaderButtonPropsType = {
     text: string;
     children: JSX.Element,
     active?: boolean
 }
 
-const AppHeaderButton = (props: AppHeaderButtonPropsType) => {
-    const {text, children, active} = props;
+const AppHeaderButton = ({text, children, active}: TAppHeaderButtonPropsType) => {
     const activeClass = active ? styles.button_state_active : '';
 
     return (
@@ -24,10 +22,5 @@ const AppHeaderButton = (props: AppHeaderButtonPropsType) => {
     );
 };
 
-AppHeaderButton.propTypes = {
-    text: PropTypes.string.isRequired,
-    children: PropTypes.element.isRequired,
-    active: PropTypes.bool
-}
-
 export default AppHeaderButton;
+

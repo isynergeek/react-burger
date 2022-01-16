@@ -1,39 +1,37 @@
 import styles from './BurgerConstructor.module.css';
-import ConstructorItem from "./ConstructorItem";
+import ConstructorItem from "components/burger-constructor/constructor-item/ConstructorItem";
 import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useState} from "react";
 import Modal from "../modal/Modal";
 import OrderDetails from "../order-details/OrderDetails";
+import {TIngredient} from "../app/App";
 
-const TopItem = ({item}: { item: Ingredient }) => {
-    const text = `${item.name} (верх)`
+const TopItem = ({item}: { item: TIngredient }) => {
     return (
         <div className="mb-4">
             <ConstructorItem draggable={false}>
-                <ConstructorElement type="top" text={text} thumbnail={item.image_mobile} isLocked={true}
+                <ConstructorElement type="top" text={`${item.name} (верх)`} thumbnail={item.image_mobile} isLocked={true}
                                     price={item.price}/>
             </ConstructorItem>
         </div>
     );
 };
 
-const BottomItem = ({item}: { item: Ingredient }) => {
-    const text = `${item.name} (низ)`
+const BottomItem = ({item}: { item: TIngredient }) => {
     return (
         <div className="mt-4 mb-10">
             <ConstructorItem draggable={false}>
-                <ConstructorElement type="bottom" text={text} thumbnail={item.image_mobile}
+                <ConstructorElement type="bottom" text={`${item.name} (низ)`} thumbnail={item.image_mobile}
                                     price={item.price} isLocked={true}/>
             </ConstructorItem>
         </div>
     );
 }
 
-type FillingItemsPropsType = {
-    items: Ingredient[]
+type TFillingItemsPropsType = {
+    items: TIngredient[]
 }
-const FillingItems = (props: FillingItemsPropsType) => {
-    const {items} = props;
+const FillingItems = ({items}: TFillingItemsPropsType) => {
     return (
         <section className={`${styles.fillingItems} custom-scroll`}>
             {
@@ -48,12 +46,11 @@ const FillingItems = (props: FillingItemsPropsType) => {
     );
 }
 
-
-type BurgerConstructorControlsPropsType = {
+type TBurgerConstructorControlsPropsType = {
     makeOrderBtnClick: () => void
 }
 
-const Controls = (props: BurgerConstructorControlsPropsType) => {
+const Controls = (props: TBurgerConstructorControlsPropsType) => {
     const {makeOrderBtnClick} = props;
     return (
         <div className={`${styles.controls} mb-10`}>
@@ -70,12 +67,11 @@ const Controls = (props: BurgerConstructorControlsPropsType) => {
     );
 }
 
-type OrderDetailsModalPropsType = {
+type TOrderDetailsModalPropsType = {
     onClose: Function
 };
 
-const OrderDetailsModal = (props: OrderDetailsModalPropsType) => {
-    const {onClose} = props;
+const OrderDetailsModal = ({onClose}: TOrderDetailsModalPropsType) => {
     return (
         <Modal close={onClose}>
             <OrderDetails orderId="034536"/>
@@ -83,13 +79,12 @@ const OrderDetailsModal = (props: OrderDetailsModalPropsType) => {
 }
 
 
-type BurgerConstructorPropsType = {
-    ingredients: Ingredient[]
+type TBurgerConstructorPropsType = {
+    ingredients: TIngredient[]
 }
 
-const BurgerConstructor = (props: BurgerConstructorPropsType) => {
+const BurgerConstructor = ( {ingredients}: TBurgerConstructorPropsType) => {
     const [orderModalVisible, setOrderModalVisible] = useState(false);
-    const {ingredients} = props;
 
     const bunItem = ingredients[0];
 

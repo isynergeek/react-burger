@@ -1,11 +1,10 @@
 import styles from './ModalCloseButton.module.css';
 import {MouseEventHandler} from "react";
 
-type ModalOverlayPropsType = {
+type TModalOverlayPropsType = {
     onClick: MouseEventHandler
 }
-const ModalCloseButton = (props: ModalOverlayPropsType) => {
-    const {onClick} = props;
+const ModalCloseButton = ({onClick}: TModalOverlayPropsType) => {
     return (
         <div className={styles.Root} onClick={onClick}>
             <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"

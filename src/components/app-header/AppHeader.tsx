@@ -1,17 +1,14 @@
 import styles from './AppHeader.module.css';
 import {BurgerIcon, ListIcon, ProfileIcon} from '@ya.praktikum/react-developer-burger-ui-components'
-import AppHeaderButton from "./AppHeaderButton";
-import {NavItems} from "../../constants/navItems";
-import AppHeaderLogo from "./AppHeaderLogo";
-import PropTypes from "prop-types";
+import AppHeaderButton from "components/app-header/app-header-button/AppHeaderButton";
+import {NavItems} from "constants/navItems";
+import AppHeaderLogo from "components/app-header/app-header-logo/AppHeaderLogo";
 
-interface AppHeaderPropsType {
+type TAppHeaderPropsType = {
     activeItem: NavItems
 }
 
-const AppHeader = (props: AppHeaderPropsType) => {
-    const {activeItem} = props;
-
+const AppHeader = ({activeItem}: TAppHeaderPropsType) => {
     return (
         <header className={`${styles.header} pt-4 pb-4`}>
             <nav className={styles.nav}>
@@ -29,14 +26,9 @@ const AppHeader = (props: AppHeaderPropsType) => {
                         <ProfileIcon type={activeItem === NavItems.PROFILE ? 'primary' : 'secondary'}/>
                     </AppHeaderButton>
                 </div>
-
             </nav>
         </header>
     )
-}
-
-AppHeader.propTypes = {
-    activeItem: PropTypes.string.isRequired
 }
 
 export default AppHeader;

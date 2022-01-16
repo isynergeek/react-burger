@@ -1,11 +1,10 @@
 import styles from './AppMain.module.css';
 
-interface AppMainPropsType {
+type TAppMainPropsType ={
     children: JSX.Element | JSX.Element[]
 }
 
-const AppMain = (props: AppMainPropsType) => {
-    const {children} = props;
+const AppMain = ({children}: TAppMainPropsType) => {
     return (
         <main className={styles.main}>
             <div className={styles.content}>

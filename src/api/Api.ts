@@ -1,10 +1,11 @@
+const BASE_URL = 'https://norma.nomoreparties.space/api/ingredients';
+
 export const getIngredients = () => {
-  const url = 'https://norma.nomoreparties.space/api/ingredients';
-  return fetch(url).then(response => {
+  return fetch(BASE_URL).then(response => {
       if (response.ok) {
           return response.json();
       }
-      return new Error(`Ошибка запроса: ${url}`);
+      return new Error(`Ошибка запроса: ${BASE_URL}`);
   })
       .catch(error => error);
 }

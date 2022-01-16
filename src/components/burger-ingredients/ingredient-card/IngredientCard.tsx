@@ -1,10 +1,9 @@
 import styles from './IngredientCard.module.css';
 import {Counter, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import PropTypes from 'prop-types';
 import {MouseEventHandler} from "react";
 
 
-interface IngredientCardPropsType {
+type TIngredientCardPropsType = {
     count?: number,
     image: string
     price: number
@@ -12,7 +11,7 @@ interface IngredientCardPropsType {
     itemClick: MouseEventHandler
 }
 
-const IngredientCard = (props: IngredientCardPropsType) => {
+const IngredientCard = (props: TIngredientCardPropsType) => {
     const {count, image, price, name, itemClick} = props;
     return (
         <div className={styles.main} onClick={itemClick}>
@@ -30,13 +29,5 @@ const IngredientCard = (props: IngredientCardPropsType) => {
         </div>
     );
 }
-
-IngredientCard.propTypes = {
-    count: PropTypes.number,
-    image: PropTypes.string.isRequired,
-    price: PropTypes.number.isRequired,
-    name: PropTypes.string.isRequired
-};
-
 
 export default IngredientCard;

@@ -1,17 +1,17 @@
 import React, {memo} from 'react';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './IngredientsTypeSelection.module.css';
-import {IngredientTypes} from "../../constants/ingredientTypes";
+import {IngredientTypes} from "constants/ingredientTypes";
 
-type IngredientsTypeSelectionPropsType = {
+type TIngredientsTypeSelectionPropsType = {
     click: Function
 }
 
-const IngredientsTypeSelection = memo((props: IngredientsTypeSelectionPropsType) => {
+const IngredientsTypeSelection = memo(({click}: TIngredientsTypeSelectionPropsType) => {
     const [current, setCurrent] = React.useState<string>(IngredientTypes.BUN)
     const tabClick = (value: string) => {
         setCurrent(value);
-        props.click(value);
+        click(value);
     }
     return (
         <div className={`${styles.main}`}>

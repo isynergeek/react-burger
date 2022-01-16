@@ -2,12 +2,11 @@ import React from 'react';
 import styles from './OrderDetails.module.css';
 import orderDoneImg from 'images/done.png';
 
-type OrderDetailsPropsType = {
+type TOrderDetailsPropsType = {
     orderId: number | string
 }
 
-const OrderDetails = (props: OrderDetailsPropsType) => {
-    const {orderId} = props;
+const OrderDetails = ({orderId}: TOrderDetailsPropsType) => {
     return (
         <section className={styles.Root}>
             <div className={`${styles.OrderId} pt-20 pb-8 text text_type_digits-large`}>{orderId}</div>

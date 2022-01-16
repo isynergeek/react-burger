@@ -1,18 +1,18 @@
-import IngredientsContent from "./IngredientsContent";
-import IngredientsTypeSelection from "./IngredientsTypeSelection";
-import IngredientCard from "./IngredientCard";
+import IngredientsContent from "components/burger-ingredients/ingredients-content/IngredientsContent";
+import IngredientsTypeSelection from "components/burger-ingredients/ingredients-type-selection/IngredientsTypeSelection";
 import styles from './BurgerIngredients.module.css';
-import {IngredientTypes} from "../../constants/ingredientTypes";
+import {IngredientTypes} from "constants/ingredientTypes";
 import Modal from "../modal/Modal";
-import IngredientDetails, {IngredientDetailsPropsType} from "../ingredient-details/IngredientDetails";
-import {memo, useCallback, useRef, useState} from "react";
+import IngredientDetails, {TIngredientDetailsPropsType} from "components/ingredient-details/IngredientDetails";
+import {useCallback, useRef, useState} from "react";
+import {TIngredient} from "components/app/App";
 
 
-type IngredientDetailsModalPropsType = IngredientDetailsPropsType & {
+type TIngredientDetailsModalPropsType = TIngredientDetailsPropsType & {
     onClose: Function
 };
 
-const IngredientDetailsModal = (props: IngredientDetailsModalPropsType) => {
+const IngredientDetailsModal = (props: TIngredientDetailsModalPropsType) => {
     const {onClose} = props;
     return (
         <Modal close={onClose}>
@@ -21,38 +21,14 @@ const IngredientDetailsModal = (props: IngredientDetailsModalPropsType) => {
     );
 }
 
-type IngredientsListByTypePropsType = {
-    type: string,
-    data: Ingredient[],
-    onItemClick: Function
-}
-
-const IngredientsListByType = memo((props: IngredientsListByTypePropsType) => {
-    const {type, data, onItemClick} = props;
-    const cards = data.filter(item => item.type === type)
-        .map(item =>
-            (
-                <IngredientCard key={item._id}
-                                image={item.image}
-                                price={item.price}
-                                name={item.name}
-                                itemClick={() => onItemClick(item)}
-                />
-            ));
-    return (
-        <>{cards}</>
-    );
-})
-
 type BurgerIngredientsPropsType = {
-    ingredients: Ingredient[]
+    ingredients: TIngredient[]
 }
 
-const BurgerIngredients = (props: BurgerIngredientsPropsType) => {
-    const {ingredients} = props;
+const BurgerIngredients = ({ingredients}: BurgerIngredientsPropsType) => {
     const [detailsModalVisible, setDetailsModalVisible] = useState(false);
 
-    const [selectedItem, setSelectedItem] = useState<Ingredient>({} as Ingredient);
+    const [selectedItem, setSelectedItem] = useState<TIngredient>({} as TIngredient);
 
     const selectItem = useCallback((item) => {
         setSelectedItem(item);
@@ -65,7 +41,7 @@ const BurgerIngredients = (props: BurgerIngredientsPropsType) => {
 
 
     const scrollToSection = (section: string) => {
-        if (section === IngredientTypes.BUN  && bunRef.current) {
+        if (section === IngredientTypes.BUN && bunRef.current) {
             bunRef.current.scrollIntoView({behavior: "smooth"})
         }
         if (section === IngredientTypes.MAIN && mainRef.current) {
@@ -78,26 +54,29 @@ const BurgerIngredients = (props: BurgerIngredientsPropsType) => {
 
     return (
         <section className={styles.Root}>
-            <div className="text_type_main-large mb-5 mt-10">Соберите бурег</div>
+            <div className="text_type_main-large mb-5 mt-10">Соберите бургер</div>
             <IngredientsTypeSelection click={scrollToSection}/>
             <div className={`${styles.contentWrap} custom-scroll`}>
-                <IngredientsContent title="Булки" ref={bunRef}>
-                    <IngredientsListByType type={IngredientTypes.BUN}
-                                           data={ingredients}
-                                           onItemClick={selectItem}/>
-                </IngredientsContent>
+                <IngredientsContent
+                    title="Булки"
+                    ingredients={ingredients}
+                    ingredientType={IngredientTypes.BUN}
+                    onItemClick={selectItem}
+                    ref={bunRef} />
 
-                <IngredientsContent title="Соусы" ref={sauceRef}>
-                    <IngredientsListByType type={IngredientTypes.SAUCE}
-                                           data={ingredients}
-                                           onItemClick={selectItem}/>
-                </IngredientsContent>
+                <IngredientsContent
+                    title="Соусы"
+                    ingredients={ingredients}
+                    ingredientType={IngredientTypes.SAUCE}
+                    onItemClick={selectItem}
+                    ref={sauceRef} />
 
-                <IngredientsContent title="Начинка" ref={mainRef}>
-                    <IngredientsListByType type={IngredientTypes.MAIN}
-                                           data={ingredients}
-                                           onItemClick={selectItem}/>
-                </IngredientsContent>
+                <IngredientsContent
+                    title="Начинка"
+                    ingredients={ingredients}
+                    ingredientType={IngredientTypes.MAIN}
+                    onItemClick={selectItem}
+                    ref={mainRef} />
             </div>
             {detailsModalVisible &&
                 <IngredientDetailsModal

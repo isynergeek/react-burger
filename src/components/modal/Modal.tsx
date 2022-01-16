@@ -1,39 +1,39 @@
-import React, {KeyboardEvent, SyntheticEvent, useEffect, useRef} from 'react';
+import React, {useEffect} from 'react';
 import styles from './Modal.module.css';
 import ReactDOM from "react-dom";
-import ModalOverlay from "../modal-overlay/ModalOverlay";
-import ModalCloseButton from "./ModalCloseButton";
+import ModalOverlay from "components/modal-overlay/ModalOverlay";
+import ModalCloseButton from "components/modal/modal-close-button/ModalCloseButton";
 
-type ModalPropsType = {
+type TModalPropsType = {
     children: JSX.Element | JSX.Element[],
     close: Function,
 }
 
 const modalRoot = document.getElementById('app-modals');
 
-const Modal = (props: ModalPropsType) => {
+const Modal = (props: TModalPropsType) => {
     const {children, close} = props;
 
-    const modalRef = useRef<HTMLElement>(null);
-
-    useEffect(() => {
-        modalRef.current && modalRef.current.focus();
-    },[])
-
-    const closeHandler = (e: SyntheticEvent) => {
-        return close(e);
+    const closeHandler = () => {
+        return close();
     };
 
     const onKeyDown = (e: KeyboardEvent) => {
         if (e.key === 'Escape') {
-            return closeHandler(e);
+            return closeHandler();
         }
     }
+
+    useEffect(() => {
+        window.addEventListener('keydown', onKeyDown);
+        return () => window.removeEventListener('keydown', onKeyDown);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [])
 
     return modalRoot ? ReactDOM.createPortal(
         (
             <>
-                <section className={styles.Root} onKeyDown={onKeyDown} tabIndex={-1} ref={modalRef}>
+                <section className={styles.Root}>
                     <div className={`${styles.Content} p-10 pb-15`}>
                         {children}
                     </div>
