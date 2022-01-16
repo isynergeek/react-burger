@@ -1,0 +1,6 @@
+.Root {
+    position: absolute;
+    right: calc(var(--offset-base-size) * 10);
+    top: calc(var(--offset-base-size) * 15);
+    cursor: pointer;
+}

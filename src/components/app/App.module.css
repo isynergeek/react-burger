@@ -1,3 +1,5 @@
-.main {
-
+.ConstructorRoot {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    column-gap: calc(var(--offset-base-size) * 10);
 }

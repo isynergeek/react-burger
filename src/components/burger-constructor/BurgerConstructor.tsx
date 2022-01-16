@@ -1,36 +1,39 @@
 import styles from './BurgerConstructor.module.css';
 import ConstructorItem from "./ConstructorItem";
 import {Button, ConstructorElement, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import data from "../../utils/data";
+import {useState} from "react";
+import Modal from "../modal/Modal";
+import OrderDetails from "../order-details/OrderDetails";
 
-const TopItem = () => {
-    const itemData = data[0];
-    const text = `${itemData.name} (верх)`
+const TopItem = ({item}: { item: Ingredient }) => {
+    const text = `${item.name} (верх)`
     return (
         <div className="mb-4">
             <ConstructorItem draggable={false}>
-                <ConstructorElement type="top" text={text} thumbnail={itemData.image_mobile} isLocked={true}
-                                    price={itemData.price}/>
+                <ConstructorElement type="top" text={text} thumbnail={item.image_mobile} isLocked={true}
+                                    price={item.price}/>
             </ConstructorItem>
         </div>
     );
 };
 
-const BottomItem = () => {
-    const itemData = data[0];
-    const text = `${itemData.name} (низ)`
+const BottomItem = ({item}: { item: Ingredient }) => {
+    const text = `${item.name} (низ)`
     return (
         <div className="mt-4 mb-10">
             <ConstructorItem draggable={false}>
-                <ConstructorElement type="bottom" text={text} thumbnail={itemData.image_mobile}
-                                    price={itemData.price} isLocked={true}/>
+                <ConstructorElement type="bottom" text={text} thumbnail={item.image_mobile}
+                                    price={item.price} isLocked={true}/>
             </ConstructorItem>
         </div>
     );
 }
 
-const FillingItems = () => {
-    const items = data.slice(1, data.length - 1);
+type FillingItemsPropsType = {
+    items: Ingredient[]
+}
+const FillingItems = (props: FillingItemsPropsType) => {
+    const {items} = props;
     return (
         <section className={`${styles.fillingItems} custom-scroll`}>
             {
@@ -45,7 +48,13 @@ const FillingItems = () => {
     );
 }
 
-const Controls = () => {
+
+type BurgerConstructorControlsPropsType = {
+    makeOrderBtnClick: () => void
+}
+
+const Controls = (props: BurgerConstructorControlsPropsType) => {
+    const {makeOrderBtnClick} = props;
     return (
         <div className={`${styles.controls} mb-10`}>
             <div className={styles.orderPrice}>
@@ -53,7 +62,7 @@ const Controls = () => {
                 <CurrencyIcon type="primary"/>
             </div>
             <div className={styles.orderButton}>
-                <Button>
+                <Button onClick={makeOrderBtnClick}>
                     Оформить заказ
                 </Button>
             </div>
@@ -61,14 +70,40 @@ const Controls = () => {
     );
 }
 
+type OrderDetailsModalPropsType = {
+    onClose: Function
+};
 
-const BurgerConstructor = () => {
+const OrderDetailsModal = (props: OrderDetailsModalPropsType) => {
+    const {onClose} = props;
+    return (
+        <Modal close={onClose}>
+            <OrderDetails orderId="034536"/>
+        </Modal>)
+}
+
+
+type BurgerConstructorPropsType = {
+    ingredients: Ingredient[]
+}
+
+const BurgerConstructor = (props: BurgerConstructorPropsType) => {
+    const [orderModalVisible, setOrderModalVisible] = useState(false);
+    const {ingredients} = props;
+
+    const bunItem = ingredients[0];
+
+    const onMakeOrderBtnClick = () => {
+        setOrderModalVisible(true);
+    }
+
     return (
         <section className="mt-25">
-            <TopItem/>
-            <FillingItems/>
-            <BottomItem/>
-            <Controls/>
+            <TopItem item={bunItem}/>
+            <FillingItems items={ingredients}/>
+            <BottomItem item={bunItem}/>
+            <Controls makeOrderBtnClick={onMakeOrderBtnClick}/>
+            {orderModalVisible && <OrderDetailsModal onClose={() => setOrderModalVisible(false)}/>}
         </section>
     );
 }

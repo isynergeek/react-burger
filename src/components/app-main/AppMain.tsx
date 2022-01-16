@@ -1,7 +1,7 @@
 import styles from './AppMain.module.css';
 
 interface AppMainPropsType {
-    children: JSX.Element
+    children: JSX.Element | JSX.Element[]
 }
 
 const AppMain = (props: AppMainPropsType) => {

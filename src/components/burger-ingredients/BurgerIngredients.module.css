@@ -1,4 +1,7 @@
+.Root {
+
+}
 .contentWrap {
-    height: calc(100vh - 247px);
+    height: 696px;
     overflow-y: auto;
 }

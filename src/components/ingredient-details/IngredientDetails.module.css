@@ -1,0 +1,21 @@
+.Root {
+}
+
+.Content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.DetailBlock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    color: #8585AD;
+    gap: 8px;
+}
+
+.DetailBlockRow {
+    display: flex;
+    gap: calc(var(--offset-base-size) * 5);
+}
