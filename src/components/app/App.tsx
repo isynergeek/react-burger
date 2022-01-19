@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, {useEffect, useReducer, useState} from 'react';
 import styles from './App.module.css';
 import AppHeader from "components/app-header/AppHeader";
 import {NavItems} from "constants/navItems";
@@ -6,14 +6,20 @@ import AppMain from "components/app-main/AppMain";
 import {getIngredients} from "api/Api";
 import BurgerIngredients from "components/burger-ingredients/BurgerIngredients";
 import BurgerConstructor from "components/burger-constructor/BurgerConstructor";
+import {IngredientContext} from 'services/igredientContext';
+import {BurgerConstructorContext, initialState, reducer} from "services/burgerConstructorContext";
+import {IngredientTypes} from "../../constants/ingredientTypes";
+
 
 function App() {
     const [ingredients, setIngredients] = useState<TIngredient[]>([]);
+    const [state, dispatch] = useReducer(reducer, initialState);
 
     useEffect(() => {
         getIngredients()
             .then(data => {
-                setIngredients(data.data);
+                const ingredients: TIngredient[] = data.data;
+                setIngredients(ingredients);
             })
             .catch(e => console.error('Ошибка! ', e))
     }, [])
@@ -24,8 +30,12 @@ function App() {
             <AppMain>
                 {ingredients.length ?
                     (<section className={styles.ConstructorRoot}>
-                        <BurgerIngredients ingredients={ingredients}/>
-                        <BurgerConstructor ingredients={ingredients}/>
+                        <BurgerConstructorContext.Provider value={{state, dispatch}}>
+                            <IngredientContext.Provider value={ingredients}>
+                                <BurgerIngredients/>
+                            </IngredientContext.Provider>
+                            <BurgerConstructor/>
+                        </BurgerConstructorContext.Provider>
                     </section>) : <></>
                 }
             </AppMain>
