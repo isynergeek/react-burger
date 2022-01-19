@@ -1,0 +1,7 @@
+.contentItems {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(272px, 1fr));
+    column-gap: calc(var(--offset-base-size) * 6);
+    row-gap: calc(var(--offset-base-size) * 8);
+}
+
