@@ -4,14 +4,14 @@ import ReactDOM from "react-dom";
 import ModalOverlay from "components/modal-overlay/ModalOverlay";
 import ModalCloseButton from "components/modal/modal-close-button/ModalCloseButton";
 
-type TModalPropsType = {
+type TModalProps = {
     children: JSX.Element | JSX.Element[],
     close: Function,
 }
 
 const modalRoot = document.getElementById('app-modals');
 
-const Modal = (props: TModalPropsType) => {
+const Modal = (props: TModalProps) => {
     const {children, close} = props;
 
     const closeHandler = () => {

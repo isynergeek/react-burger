@@ -28,10 +28,10 @@ const BottomItem = ({item}: { item: TIngredient }) => {
     );
 }
 
-type TFillingItemsPropsType = {
+type TFillingItemsProps = {
     items: TIngredient[]
 }
-const FillingItems = ({items}: TFillingItemsPropsType) => {
+const FillingItems = ({items}: TFillingItemsProps) => {
     return (
         <section className={`${styles.fillingItems} custom-scroll`}>
             {
@@ -46,11 +46,11 @@ const FillingItems = ({items}: TFillingItemsPropsType) => {
     );
 }
 
-type TBurgerConstructorControlsPropsType = {
+type TBurgerConstructorControlsProps = {
     makeOrderBtnClick: () => void
 }
 
-const Controls = (props: TBurgerConstructorControlsPropsType) => {
+const Controls = (props: TBurgerConstructorControlsProps) => {
     const {makeOrderBtnClick} = props;
     return (
         <div className={`${styles.controls} mb-10`}>
@@ -67,11 +67,11 @@ const Controls = (props: TBurgerConstructorControlsPropsType) => {
     );
 }
 
-type TOrderDetailsModalPropsType = {
+type TOrderDetailsModalProps = {
     onClose: Function
 };
 
-const OrderDetailsModal = ({onClose}: TOrderDetailsModalPropsType) => {
+const OrderDetailsModal = ({onClose}: TOrderDetailsModalProps) => {
     return (
         <Modal close={onClose}>
             <OrderDetails orderId="034536"/>
@@ -79,11 +79,11 @@ const OrderDetailsModal = ({onClose}: TOrderDetailsModalPropsType) => {
 }
 
 
-type TBurgerConstructorPropsType = {
+type TBurgerConstructorProps = {
     ingredients: TIngredient[]
 }
 
-const BurgerConstructor = ( {ingredients}: TBurgerConstructorPropsType) => {
+const BurgerConstructor = ( {ingredients}: TBurgerConstructorProps) => {
     const [orderModalVisible, setOrderModalVisible] = useState(false);
 
     const bunItem = ingredients[0];

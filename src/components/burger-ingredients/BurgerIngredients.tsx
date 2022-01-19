@@ -3,16 +3,16 @@ import IngredientsTypeSelection from "components/burger-ingredients/ingredients-
 import styles from './BurgerIngredients.module.css';
 import {IngredientTypes} from "constants/ingredientTypes";
 import Modal from "../modal/Modal";
-import IngredientDetails, {TIngredientDetailsPropsType} from "components/ingredient-details/IngredientDetails";
+import IngredientDetails, {TIngredientDetails} from "components/ingredient-details/IngredientDetails";
 import {useCallback, useRef, useState} from "react";
 import {TIngredient} from "components/app/App";
 
 
-type TIngredientDetailsModalPropsType = TIngredientDetailsPropsType & {
+type TIngredientDetailsModalProps = TIngredientDetails & {
     onClose: Function
 };
 
-const IngredientDetailsModal = (props: TIngredientDetailsModalPropsType) => {
+const IngredientDetailsModal = (props: TIngredientDetailsModalProps) => {
     const {onClose} = props;
     return (
         <Modal close={onClose}>
@@ -21,11 +21,11 @@ const IngredientDetailsModal = (props: TIngredientDetailsModalPropsType) => {
     );
 }
 
-type BurgerIngredientsPropsType = {
+type BurgerIngredientsProps = {
     ingredients: TIngredient[]
 }
 
-const BurgerIngredients = ({ingredients}: BurgerIngredientsPropsType) => {
+const BurgerIngredients = ({ingredients}: BurgerIngredientsProps) => {
     const [detailsModalVisible, setDetailsModalVisible] = useState(false);
 
     const [selectedItem, setSelectedItem] = useState<TIngredient>({} as TIngredient);

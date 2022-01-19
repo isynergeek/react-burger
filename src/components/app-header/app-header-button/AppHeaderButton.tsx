@@ -1,13 +1,13 @@
 import styles from './AppHeaderButton.module.css';
 import React from "react";
 
-type TAppHeaderButtonPropsType = {
+type TAppHeaderButtonProps = {
     text: string;
     children: JSX.Element,
     active?: boolean
 }
 
-const AppHeaderButton = ({text, children, active}: TAppHeaderButtonPropsType) => {
+const AppHeaderButton = ({text, children, active}: TAppHeaderButtonProps) => {
     const activeClass = active ? styles.button_state_active : '';
 
     return (

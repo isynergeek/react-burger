@@ -3,11 +3,11 @@ import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './IngredientsTypeSelection.module.css';
 import {IngredientTypes} from "constants/ingredientTypes";
 
-type TIngredientsTypeSelectionPropsType = {
+type TIngredientsTypeSelectionProps = {
     click: Function
 }
 
-const IngredientsTypeSelection = memo(({click}: TIngredientsTypeSelectionPropsType) => {
+const IngredientsTypeSelection = memo(({click}: TIngredientsTypeSelectionProps) => {
     const [current, setCurrent] = React.useState<string>(IngredientTypes.BUN)
     const tabClick = (value: string) => {
         setCurrent(value);

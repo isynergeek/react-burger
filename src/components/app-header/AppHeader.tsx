@@ -4,11 +4,11 @@ import AppHeaderButton from "components/app-header/app-header-button/AppHeaderBu
 import {NavItems} from "constants/navItems";
 import AppHeaderLogo from "components/app-header/app-header-logo/AppHeaderLogo";
 
-type TAppHeaderPropsType = {
+type TAppHeaderProps = {
     activeItem: NavItems
 }
 
-const AppHeader = ({activeItem}: TAppHeaderPropsType) => {
+const AppHeader = ({activeItem}: TAppHeaderProps) => {
     return (
         <header className={`${styles.header} pt-4 pb-4`}>
             <nav className={styles.nav}>

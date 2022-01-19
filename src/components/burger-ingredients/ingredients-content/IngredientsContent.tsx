@@ -4,7 +4,7 @@ import {IngredientTypes} from "constants/ingredientTypes";
 import IngredientCard from "components/burger-ingredients/ingredient-card/IngredientCard";
 import {TIngredient} from "components/app/App";
 
-type TIngredientsContentPropsType ={
+type TIngredientsContentProps ={
     title: string,
     ingredients: TIngredient[],
     ingredientType: IngredientTypes,
@@ -16,7 +16,7 @@ const IngredientsContent = React.forwardRef(({
                                                  ingredients,
                                                  onItemClick,
                                                  ingredientType
-                                             }: TIngredientsContentPropsType, ref: LegacyRef<HTMLDivElement>) => {
+                                             }: TIngredientsContentProps, ref: LegacyRef<HTMLDivElement>) => {
     return (
         <section className="mt-10">
             <div className="text text_type_main-medium" ref={ref}>{title}</div>

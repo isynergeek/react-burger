@@ -1,12 +1,12 @@
 import React from 'react';
 import styles from './IngredientDetails.module.css';
 
-type TIngredientDetailBlockPropsType = {
+type TIngredientDetailBlockProps = {
     name: string,
     value: number
 }
 
-const DetailBlock = ({name, value}: TIngredientDetailBlockPropsType) => {
+const DetailBlock = ({name, value}: TIngredientDetailBlockProps) => {
     return (
         <section className={styles.DetailBlock}>
             <div className="text text_type_main-default">{name}</div>
@@ -15,7 +15,7 @@ const DetailBlock = ({name, value}: TIngredientDetailBlockPropsType) => {
     );
 }
 
-export type TIngredientDetailsPropsType = {
+export type TIngredientDetails = {
     calories: number,
     carbohydrates: number,
     fat: number,
@@ -24,7 +24,7 @@ export type TIngredientDetailsPropsType = {
     image: string,
 }
 
-const IngredientDetails = ({calories, carbohydrates, fat, proteins, name, image}: TIngredientDetailsPropsType) => {
+const IngredientDetails = ({calories, carbohydrates, fat, proteins, name, image}: TIngredientDetails) => {
     return (
         <section className={styles.Root}>
             <div className="text text_type_main-large">Детали ингредиента</div>

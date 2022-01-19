@@ -1,11 +1,11 @@
 import React, {MouseEventHandler} from 'react';
 import styles from './ModalOverlay.module.css';
 
-type TModalOverlayPropsType = {
+type TModalOverlayProps = {
     onClick: MouseEventHandler
 }
 
-const ModalOverlay = ({onClick}: TModalOverlayPropsType) => {
+const ModalOverlay = ({onClick}: TModalOverlayProps) => {
     return (
         <div className={styles.Root} onClick={onClick}>
         </div>
