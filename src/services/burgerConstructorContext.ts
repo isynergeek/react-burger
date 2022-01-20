@@ -54,7 +54,7 @@ export const reducer = (state: TBurgerConstructorState, action: TBurgerConstruct
     }
 
     if (action.type === 'setOrderNum') {
-        return {...state, orderNum: action.payload}
+        return {...initialState, orderNum: action.payload}
     }
 
     return state;
