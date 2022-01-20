@@ -1,0 +1,6 @@
+.Root {
+    display: flex;
+    align-items: center;
+    justify-content: right;
+    gap: calc(var(--offset-base-size) * 10);
+}
