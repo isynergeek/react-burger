@@ -1,8 +1,7 @@
-import React from 'react';
 import styles from './OrderDetails.module.css';
 import orderDoneImg from 'images/done.png';
-import {TOrderNum} from "../../services/burgerConstructorContext";
 
+export type TOrderNum = string | number | null;
 type TOrderDetailsProps = {
     orderNum: TOrderNum
 }

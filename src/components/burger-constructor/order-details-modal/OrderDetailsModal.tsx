@@ -1,11 +1,10 @@
 import Modal from "../../modal/Modal";
-import OrderDetails from "../../order-details/OrderDetails";
-import {TOrderNum} from "../../../services/burgerConstructorContext";
+import OrderDetails, { TOrderNum } from '../../order-details/OrderDetails';
 import OrderFailed from "../../order-details/order-failed/OrderFailed";
 
 type TOrderDetailsModalProps = {
     orderNum: TOrderNum,
-    onClose: Function
+    onClose: () => void
 };
 
 const OrderDetailsModal = ({onClose, orderNum}: TOrderDetailsModalProps) => {

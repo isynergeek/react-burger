@@ -1,16 +1,19 @@
-import React, {memo} from 'react';
+import {memo} from 'react';
 import {Tab} from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from './IngredientsTypeSelection.module.css';
 import {IngredientTypes} from "constants/ingredientTypes";
+import {useAppDispatch, useAppSelector} from "../../../services/hooks";
+import {SET_CURRENT_TAB} from "../../../services/reducers/burgerIngredientsSlice";
 
 type TIngredientsTypeSelectionProps = {
-    click: Function
+  click: (value :string) => void
 }
 
 const IngredientsTypeSelection = memo(({click}: TIngredientsTypeSelectionProps) => {
-    const [current, setCurrent] = React.useState<string>(IngredientTypes.BUN)
+    const current = useAppSelector(state => state.burgerIngredients.currentTab);
+    const dispatch = useAppDispatch();
     const tabClick = (value: string) => {
-        setCurrent(value);
+        dispatch(SET_CURRENT_TAB(value as IngredientTypes));
         click(value);
     }
     return (
@@ -27,5 +30,7 @@ const IngredientsTypeSelection = memo(({click}: TIngredientsTypeSelectionProps) 
         </div>
     );
 });
+
+IngredientsTypeSelection.displayName = 'IngredientsTypeSelection';
 
 export default IngredientsTypeSelection;

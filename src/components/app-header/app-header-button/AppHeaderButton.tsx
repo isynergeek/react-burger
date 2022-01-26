@@ -1,5 +1,4 @@
 import styles from './AppHeaderButton.module.css';
-import React from "react";
 
 type TAppHeaderButtonProps = {
     text: string;

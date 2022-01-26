@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import {useEffect} from 'react';
 import styles from './Modal.module.css';
 import ReactDOM from "react-dom";
 import ModalOverlay from "components/modal-overlay/ModalOverlay";
@@ -6,7 +6,7 @@ import ModalCloseButton from "components/modal/modal-close-button/ModalCloseButt
 
 type TModalProps = {
     children: JSX.Element | JSX.Element[],
-    close: Function,
+    close: () => void,
 }
 
 const modalRoot = document.getElementById('app-modals');
@@ -27,7 +27,6 @@ const Modal = (props: TModalProps) => {
     useEffect(() => {
         window.addEventListener('keydown', onKeyDown);
         return () => window.removeEventListener('keydown', onKeyDown);
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 
     return modalRoot ? ReactDOM.createPortal(

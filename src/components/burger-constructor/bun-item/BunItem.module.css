@@ -1,6 +1,21 @@
-.Root {
-
-}
 .PlaceHolder {
     height: 80px;
+}
+
+.main {
+    display: flex;
+    align-items: center;
+}
+
+.dragIcon {
+    cursor: pointer;
+    flex-basis: calc(var(--offset-base-size) * 8);
+}
+
+.item {
+    width: 100%;
+}
+
+:global .constructor-element {
+    width: 100%;
 }
