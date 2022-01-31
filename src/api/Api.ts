@@ -24,3 +24,4 @@ export const makeOrder = (ingredients: (string | undefined)[]) => {
         throw new Error(`Ошибка запроса: ${ORDER_URL}`);
     })
 }
+

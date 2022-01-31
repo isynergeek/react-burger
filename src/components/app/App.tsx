@@ -1,61 +1,39 @@
-import React, {useEffect, useReducer, useState} from 'react';
+import { useEffect } from 'react';
 import styles from './App.module.css';
-import AppHeader from "components/app-header/AppHeader";
-import {NavItems} from "constants/navItems";
-import AppMain from "components/app-main/AppMain";
-import {getIngredients} from "api/Api";
-import BurgerIngredients from "components/burger-ingredients/BurgerIngredients";
-import BurgerConstructor from "components/burger-constructor/BurgerConstructor";
-import {IngredientContext} from 'services/igredientContext';
-import {BurgerConstructorContext, initialState, reducer} from "services/burgerConstructorContext";
-import {IngredientTypes} from "../../constants/ingredientTypes";
-
+import AppHeader from 'components/app-header/AppHeader';
+import { NavItems } from 'constants/navItems';
+import AppMain from 'components/app-main/AppMain';
+import BurgerIngredients from 'components/burger-ingredients/BurgerIngredients';
+import BurgerConstructor from 'components/burger-constructor/BurgerConstructor';
+import { getItems } from '../../services/actions/burgerIngredients';
+import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 function App() {
-    const [ingredients, setIngredients] = useState<TIngredient[]>([]);
-    const [state, dispatch] = useReducer(reducer, initialState);
+    const dispatch = useAppDispatch();
+    const {items} = useAppSelector(state => state.burgerIngredients);
 
     useEffect(() => {
-        getIngredients()
-            .then(data => {
-                const ingredients: TIngredient[] = data.data;
-                setIngredients(ingredients);
-            })
-            .catch(e => console.error('Ошибка! ', e))
+        dispatch(getItems());
     }, [])
+
 
     return (
         <div className={styles.main}>
-            <AppHeader activeItem={NavItems.CONSTRUCTOR}/>
+            <AppHeader activeItem={NavItems.CONSTRUCTOR} />
             <AppMain>
-                {ingredients.length ?
+                {items.length ?
                     (<section className={styles.ConstructorRoot}>
-                        <BurgerConstructorContext.Provider value={{state, dispatch}}>
-                            <IngredientContext.Provider value={ingredients}>
-                                <BurgerIngredients/>
-                            </IngredientContext.Provider>
-                            <BurgerConstructor/>
-                        </BurgerConstructorContext.Provider>
+                      <DndProvider backend={HTML5Backend}>
+                        <BurgerIngredients />
+                        <BurgerConstructor />
+                      </DndProvider>
                     </section>) : <></>
                 }
             </AppMain>
         </div>
     );
-}
-
-export type TIngredient = {
-    calories: number,
-    carbohydrates: number,
-    fat: number,
-    image: string,
-    image_large: string,
-    image_mobile: string,
-    name: string,
-    price: number,
-    proteins: number,
-    type: string,
-    __v: number,
-    _id: string,
 }
 
 export default App;

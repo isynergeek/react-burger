@@ -1,6 +1,7 @@
 .Root {
 
 }
+
 .fillingItems {
     display: flex;
     flex-direction: column;
@@ -8,4 +9,8 @@
     height: 464px;
     overflow-y: scroll;
     overflow-x: hidden;
+}
+
+.Content {
+    border: 1px solid transparent;
 }

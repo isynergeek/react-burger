@@ -1,15 +1,15 @@
 import styles from './IngredientsContent.module.css';
-import React, {LegacyRef} from "react";
+import { forwardRef, LegacyRef } from 'react';
 import IngredientCard from "components/burger-ingredients/ingredient-card/IngredientCard";
-import {TIngredient} from "components/app/App";
+import { IIngredient } from '../../../services/reducers/burgerIngredientsSlice';
 
 type TIngredientsContentProps = {
     title: string,
-    ingredients: TIngredient[],
-    onItemClick: Function
+    ingredients: IIngredient[],
+    onItemClick: (item: IIngredient) => void
 }
 
-const IngredientsContent = React.forwardRef(({
+const IngredientsContent = forwardRef(({
                                                  title,
                                                  ingredients,
                                                  onItemClick,
@@ -21,6 +21,7 @@ const IngredientsContent = React.forwardRef(({
                 <div className={styles.contentItems}>
                     {ingredients.map(item =>
                         (<IngredientCard key={item._id}
+                                         id={item._id}
                                          image={item.image}
                                          price={item.price}
                                          name={item.name}
@@ -32,5 +33,6 @@ const IngredientsContent = React.forwardRef(({
         </section>
     );
 });
+IngredientsContent.displayName = 'IngredientsContent';
 
 export default IngredientsContent;
