@@ -1,0 +1,17 @@
+.Root {
+    margin-top: 120px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Container {
+    width: 1280px;
+    display: grid;
+    grid-template-columns: 320px auto;
+    grid-column-gap: calc(var(--offset-base-size) * 15);
+}
+
+.Content {
+
+}

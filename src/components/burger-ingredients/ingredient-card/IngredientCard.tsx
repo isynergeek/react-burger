@@ -14,18 +14,9 @@ type TIngredientCardProps = {
   itemClick: MouseEventHandler
 }
 
-const IngredientCard = memo(({
-  id,
-  image,
-  price,
-  name,
-  itemClick
-}: TIngredientCardProps) => {
+const IngredientCard = memo(({ id, image, price, name, itemClick }: TIngredientCardProps) => {
 
-  const {
-    bun,
-    items
-  } = useAppSelector(state => state.burgerConstructor);
+  const { bun, items } = useAppSelector(state => state.burgerConstructor);
   const allIngredients = [bun, bun, ...items].filter(Boolean);
   const count = allIngredients.filter(item => item?._id === id).length;
 
@@ -50,6 +41,7 @@ const IngredientCard = memo(({
     </div>
   );
 });
+
 IngredientCard.displayName = 'IngredientCard';
 
 export default IngredientCard;

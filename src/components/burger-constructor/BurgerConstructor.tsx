@@ -15,6 +15,8 @@ import {
   ADD_INGREDIENT,
   CLEAR_CONSTRUCTOR
 } from '../../services/reducers/burgerConstructorSlice';
+import { useHistory } from 'react-router-dom';
+import ROUTES from '../../constants/routes';
 
 const getOrderIdsFromState = ({ items, bun}: { items: IIngredient[], bun: IIngredient | null }) => {
   const itemIds = items.map(item => item._id);
@@ -25,17 +27,25 @@ const getOrderIdsFromState = ({ items, bun}: { items: IIngredient[], bun: IIngre
 
 const BurgerConstructor = () => {
     const dispatch = useAppDispatch();
+    const history = useHistory();
 
     const [orderModalVisible, setOrderModalVisible] = useState(false);
     const { items, bun } = useAppSelector(state => state.burgerConstructor);
     const { items: ingredients } = useAppSelector(state => state.burgerIngredients);
     const { orderNum, orderNumRequest } = useAppSelector(state => state.orderDetails);
+    const isAuth = useAppSelector(state => state.userProfile.isAuth);
 
     const onMakeOrderBtnClick = () => {
+      if (!isAuth) {
+        history.push(ROUTES.LOGIN);
+        return;
+      }
+
       if (items.length === 0 || !bun) {
         return;
       }
       const itemIds = getOrderIdsFromState({items,bun});
+
       dispatch(makeOrder(itemIds))
         .then(() => dispatch(CLEAR_CONSTRUCTOR()));
       setOrderModalVisible(true);

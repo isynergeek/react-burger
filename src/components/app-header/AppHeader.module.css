@@ -2,14 +2,12 @@
     background-color: var(--background);
     display: flex;
     justify-content: center;
-
 }
 .nav {
     width: 1280px;
     display: flex;
     justify-content : space-between;
     align-items: center;
-
 }
 
 .left {

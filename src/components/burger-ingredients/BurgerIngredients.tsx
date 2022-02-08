@@ -3,21 +3,11 @@ import IngredientsTypeSelection
     from "components/burger-ingredients/ingredients-type-selection/IngredientsTypeSelection";
 import styles from './BurgerIngredients.module.css';
 import {IngredientTypes} from "constants/ingredientTypes";
-import Modal from "../modal/Modal";
-import IngredientDetails, {TIngredientDetailsProps} from "components/ingredient-details/IngredientDetails";
-import {SyntheticEvent, useCallback, useRef, useState} from "react";
+import {SyntheticEvent, useCallback, useRef} from "react";
 import {useAppDispatch, useAppSelector} from "../../services/hooks";
 import { SET_CURRENT_TAB, IIngredient } from '../../services/reducers/burgerIngredientsSlice';
-import {
-    IIngredientDetailsState, REMOVE_DETAILS,
-    SET_DETAILS
-} from '../../services/reducers/ingredientDetailsSlice';
-
-
-type TIngredientDetailsModalProps = TIngredientDetailsProps & {
-    onClose: () => void
-};
-
+import { useHistory, useLocation } from 'react-router-dom';
+import ROUTES from '../../constants/routes';
 
 type TPositionType = {
     bunPosition: number,
@@ -53,39 +43,17 @@ const getTheNearestType: TGetTheNearestIngredientType = ({
     return type;
 }
 
-const IngredientDetailsModal = (props: TIngredientDetailsModalProps) => {
-    const {onClose} = props;
-    return (
-        <Modal close={onClose}>
-            <IngredientDetails {...props} />
-        </Modal>
-    );
-}
-
 const BurgerIngredients = () => {
 
     const dispatch = useAppDispatch();
+    const history = useHistory();
+    const location = useLocation();
     const ingredients = useAppSelector(state => state.burgerIngredients.items);
-    const ingredientDetails = useAppSelector(state => state.ingredientDetails);
 
-    const [detailsModalVisible, setDetailsModalVisible] = useState(false);
 
     const selectItem = useCallback((item: IIngredient) => {
-        const details: IIngredientDetailsState = {
-            image: item.image_large,
-            fat: item.fat,
-            proteins: item.proteins,
-            name: item.name,
-            carbohydrates: item.carbohydrates,
-            calories: item.calories
-        };
-        dispatch(SET_DETAILS(details));
-        setDetailsModalVisible(true);
+        history.push(`${ROUTES.INGREDIENTS}/${item._id}`, {background: location})
     }, []);
-    const closeModal = useCallback(() => {
-        setDetailsModalVisible(false);
-        dispatch(REMOVE_DETAILS());
-    },[]);
 
     const contentRef = useRef<HTMLDivElement>(null);
     const mainRef = useRef<HTMLDivElement>(null);
@@ -149,7 +117,6 @@ const BurgerIngredients = () => {
                     onItemClick={selectItem}
                     ref={mainRef} />
             </div>
-            { detailsModalVisible && <IngredientDetailsModal onClose={closeModal} {...ingredientDetails} /> }
         </section>
     )
 }

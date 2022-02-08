@@ -1,0 +1,23 @@
+.Menu {
+    display: flex;
+    flex-direction: column;
+}
+
+.MenuItem {
+    padding: 17px 0;
+    cursor: pointer;
+    color: var(--text-color-2);
+    transition: 0.3s;
+}
+
+.MenuItem:hover {
+    color: var(--text-color-1);
+}
+
+.MenuItem_isActive {
+    color: var(--text-color-1);
+}
+
+.NavBarText {
+    color: rgba(133, 133, 173, 0.4);
+}
