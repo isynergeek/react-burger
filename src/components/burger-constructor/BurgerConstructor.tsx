@@ -32,7 +32,6 @@ const BurgerConstructor = () => {
     const [orderModalVisible, setOrderModalVisible] = useState(false);
     const { items, bun } = useAppSelector(state => state.burgerConstructor);
     const { items: ingredients } = useAppSelector(state => state.burgerIngredients);
-    const { orderNum, orderNumRequest } = useAppSelector(state => state.orderDetails);
     const isAuth = useAppSelector(state => state.userProfile.isAuth);
 
     const onMakeOrderBtnClick = () => {
@@ -40,7 +39,6 @@ const BurgerConstructor = () => {
         history.push(ROUTES.LOGIN);
         return;
       }
-
       if (items.length === 0 || !bun) {
         return;
       }
@@ -86,8 +84,8 @@ const BurgerConstructor = () => {
         </section>
         <Controls makeOrderBtnClick={onMakeOrderBtnClick}/>
 
-        {orderModalVisible && !orderNumRequest &&
-          <OrderDetailsModal orderNum={orderNum} onClose={() => setOrderModalVisible(false)}/>}
+        {orderModalVisible &&
+          <OrderDetailsModal onClose={() => setOrderModalVisible(false)}/>}
       </section>
     );
   }

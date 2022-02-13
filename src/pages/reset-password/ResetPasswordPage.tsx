@@ -7,7 +7,7 @@ import {
 import RegistrationLayout from '../../components/registration-layout/RegistrationLayout';
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import ROUTES from '../../constants/routes';
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { userProfile } from '../../services/actions/userProfile';
 import { useAppDispatch } from '../../services/hooks';
 
@@ -56,7 +56,8 @@ const ResetPasswordPage = () => {
     });
   };
 
-  const submitBtnHandler = () => {
+  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
     if (!state.password) {
       setState({
@@ -98,12 +99,11 @@ const ResetPasswordPage = () => {
           tokenErrorMessage: e.message,
         })
       });
-
   };
 
   return (
     <RegistrationLayout>
-      <section className={styles.Form}>
+      <form  className={styles.Form} onSubmit={handleSubmitForm}>
         <div className={`${styles.Title} text text_type_main-medium`}>Восстановление пароля</div>
         {state.passwordError && <div
           className={`${styles.Text} text text_type_main-default`}>{state.passwordErrorMessage}</div>}
@@ -122,14 +122,14 @@ const ResetPasswordPage = () => {
         />
         <div className="mb-6"/>
         <div>
-          <Button type="primary" size="large" onClick={submitBtnHandler}>
+          <Button type="primary" size="large" htmlType={'submit'}>
             Сохранить
           </Button>
         </div>
         <div className="mb-20"/>
         <div className={`${styles.Text} text text_type_main-default`}>Вспомнили пароль? <Link
           to={ROUTES.LOGIN} className={styles.TextLink}>Войти</Link></div>
-      </section>
+      </form>
     </RegistrationLayout>
   );
 };

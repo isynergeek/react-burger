@@ -1,13 +1,9 @@
 import styles from './LoginPage.module.css';
-import {
-    Button,
-    Input,
-    PasswordInput
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
 import RegistrationLayout from "../../components/registration-layout/RegistrationLayout";
 import { Link, Redirect, useHistory, useLocation } from 'react-router-dom';
 import ROUTES from "../../constants/routes";
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { userProfile } from '../../services/actions/userProfile';
 import { storageService } from '../../services/storageService';
@@ -17,15 +13,13 @@ const LoginPage = () => {
     const dispatch = useAppDispatch();
     const history = useHistory();
     const location = useLocation<{from:string}>();
+
     const isAuth = useAppSelector(state => state.userProfile.isAuth);
     if (isAuth) {
-      return (
-        <Redirect
+      return (<Redirect
           to={ location.state?.from || '/' }
-        />
-      );
+        />);
     }
-
 
     const [state, setState] = useState({
         email: '',
@@ -36,7 +30,9 @@ const LoginPage = () => {
         passwordError: false,
     });
 
-    const handleSubmitBtnClick = () => {
+    const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
         if (!state.email) {
             setState({...state, emailError: true, emailErrorMessage: 'Ошибка ввода e-mail'})
         }
@@ -88,7 +84,7 @@ const LoginPage = () => {
 
     return (
       <RegistrationLayout>
-        <section className={styles.Form}>
+        <form className={styles.Form} onSubmit={handleSubmitForm}>
           <div className={`${styles.Title} text text_type_main-medium`}>Вход</div>
           <div className="mb-6"/>
           <Input
@@ -107,7 +103,7 @@ const LoginPage = () => {
             className={`${styles.Text} text text_type_main-default`}>{state.passwordErrorMessage}</div>}
           <div className="mb-6"/>
           <div>
-            <Button type="primary" size="large" onClick={handleSubmitBtnClick}>
+            <Button type="primary" size="large" htmlType={'submit'}>
               Войти
             </Button>
           </div>
@@ -119,7 +115,7 @@ const LoginPage = () => {
           <div className={`${styles.Text} text text_type_main-default`}>Забыли пароль? <Link
             to={ROUTES.FORGOT_PASSWORD}
             className={styles.TextLink}>Восстановить пароль</Link></div>
-        </section>
+        </form>
       </RegistrationLayout>
     );
 };

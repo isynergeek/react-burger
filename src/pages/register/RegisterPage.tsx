@@ -3,21 +3,22 @@ import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components"
 import RegistrationLayout from "../../components/registration-layout/RegistrationLayout";
 import { Link, useHistory } from 'react-router-dom';
 import ROUTES from 'constants/routes';
-import { ChangeEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { userProfile } from '../../services/actions/userProfile';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
+import { useAppDispatch } from '../../services/hooks';
 import { LOCAL_STORAGE_KEYS } from '../../constants/localStorageKeys';
 import { storageService } from '../../services/storageService';
 
 const RegisterPage = () => {
     const dispatch = useAppDispatch();
-    const errorMessage = useAppSelector(state => state.userProfile.errorMessage);
     const history = useHistory();
 
     const [state, setState] = useState({
         name: '',
         email: '',
         password: '',
+        error: false,
+        errorMessage: '',
     });
 
     const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
@@ -25,14 +26,14 @@ const RegisterPage = () => {
         setState({
             ...state,
             [name]: value,
+            error: false,
+            errorMessage: ''
         });
     };
 
-    const registerBtnHandler = () => {
-      const isValid = Object.values(state).every(Boolean);
-      if (!isValid) {
-        return;
-      }
+    const handleSubmitBtnClick = (e: React.FormEvent<HTMLFormElement>) => {
+      e.preventDefault();
+
       dispatch(userProfile.register({ ...state }))
         .unwrap()
         .then(response => {
@@ -41,15 +42,16 @@ const RegisterPage = () => {
           storageService.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, response.refreshToken);
           history.push(ROUTES.CONSTRUCTOR);
         })
-        .catch(() => {
+        .catch((e) => {
           storageService.setItem(LOCAL_STORAGE_KEYS.ACCESS_TOKEN, null);
           storageService.setItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN, null);
+          setState({...state, error: true, errorMessage: e.message});
         });
     };
 
     return (
         <RegistrationLayout>
-            <section className={styles.Form}>
+            <form className={styles.Form} onSubmit={handleSubmitBtnClick}>
                 <div className={`${styles.Title} text text_type_main-medium`}>Регистрация</div>
                 <div className="mb-6" />
                 <Input
@@ -69,8 +71,8 @@ const RegisterPage = () => {
                   onChange={inputChangeHandler}
                   value={state.email}
                   name={'email'}
-                  error={!!errorMessage && !!state.email}
-                  errorText={errorMessage}
+                  error={state.error}
+                  errorText={state.errorMessage}
                   size={'default'}
                 />
                 <div className="mb-6" />
@@ -86,7 +88,7 @@ const RegisterPage = () => {
                 />
                 <div className="mb-6" />
                 <div>
-                    <Button type="primary" size="large" onClick={registerBtnHandler}>
+                    <Button type="primary" size="large" htmlType={'submit'}>
                         Зарегистрироваться
                     </Button>
                 </div>
@@ -94,7 +96,7 @@ const RegisterPage = () => {
                 <div className={`${styles.Text} text text_type_main-default`}>
                     Уже зарегистрированы? <Link to={ROUTES.LOGIN} className={styles.TextLink}>Войти</Link>
                 </div>
-            </section>
+            </form>
         </RegistrationLayout>
     );
 };

@@ -1,24 +1,30 @@
 import { storageService } from '../services/storageService';
 import { LOCAL_STORAGE_KEYS } from '../constants/localStorageKeys';
 
-const BASE_URL = 'https://norma.nomoreparties.space/api/ingredients';
-const ORDER_URL = 'https://norma.nomoreparties.space/api/orders';
-const USER_REGISTER_URL = 'https://norma.nomoreparties.space/api/auth/register';
-const USER_RECOVER_URL = 'https://norma.nomoreparties.space/api/password-reset';
-const USER_PASSWORD_RESET_URL = 'https://norma.nomoreparties.space/api/password-reset/reset';
-const USER_LOGIN_URL = 'https://norma.nomoreparties.space/api/auth/login';
-const USER_LOGOUT_URL = 'https://norma.nomoreparties.space/api/auth/logout';
-const USER_REFRESH_TOKEN_URL = 'https://norma.nomoreparties.space/api/auth/token';
-const USER_DATA_URL = 'https://norma.nomoreparties.space/api/auth/user';
+const BASE_URL = 'https://norma.nomoreparties.space/api';
+const INGREDIENTS_URL = `${BASE_URL}/ingredients`
+const ORDER_URL = `${BASE_URL}/orders`;
+const USER_REGISTER_URL = `${BASE_URL}/auth/register`;
+const USER_RECOVER_URL = `${BASE_URL}/password-reset`;
+const USER_PASSWORD_RESET_URL = `${BASE_URL}/password-reset/reset`;
+const USER_LOGIN_URL = `${BASE_URL}/auth/login`;
+const USER_LOGOUT_URL = `${BASE_URL}/auth/logout`;
+const USER_REFRESH_TOKEN_URL = `${BASE_URL}/auth/token`;
+const USER_DATA_URL = `${BASE_URL}/auth/user`;
+
+const checkResponse = (response: Response) => {
+  if (response.ok) {
+    return response.json();
+  }
+  return response.json()
+    .then(e => {
+      throw new Error(e.message);
+    });
+};
 
 export const getIngredients = () => {
-  return fetch(BASE_URL)
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(`Ошибка запроса: ${BASE_URL}`);
-    });
+  return fetch(INGREDIENTS_URL)
+    .then(checkResponse);
 };
 
 export const makeOrder = (ingredients: (string | undefined)[]) => {
@@ -30,12 +36,7 @@ export const makeOrder = (ingredients: (string | undefined)[]) => {
     },
     body: JSON.stringify({ ingredients })
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      throw new Error(`Ошибка запроса: ${ORDER_URL}`);
-    });
+    .then(checkResponse);
 };
 
 export interface IUserRegister {
@@ -52,16 +53,7 @@ const register = (data: IUserRegister) => {
     },
     body: JSON.stringify(data)
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response.json()
-        .then(e => {
-          throw new Error(e.message);
-        });
-
-    });
+    .then(checkResponse);
 };
 
 export interface IUserRecover {
@@ -76,15 +68,7 @@ const recover = (data: IUserRecover) => {
     },
     body: JSON.stringify(data)
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response.json()
-        .then(e => {
-          throw new Error(e.message);
-        });
-    });
+    .then(checkResponse);
 };
 
 export interface IUserPasswordReset {
@@ -100,15 +84,7 @@ const passwordReset = (data: IUserPasswordReset) => {
     },
     body: JSON.stringify(data)
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response.json()
-        .then(e => {
-          throw new Error(e.message);
-        });
-    });
+    .then(checkResponse);
 }
 
 export interface IUserLogin {
@@ -124,15 +100,7 @@ const login = (data: IUserLogin) => {
     },
     body: JSON.stringify(data)
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response.json()
-        .then(e => {
-          throw new Error(e.message);
-        });
-    });
+    .then(checkResponse);
 }
 
 export interface IUserLogout {
@@ -147,15 +115,7 @@ const logout = (data: IUserLogout) => {
     },
     body: JSON.stringify(data)
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response.json()
-        .then(e => {
-          throw new Error(e.message);
-        });
-    });
+    .then(checkResponse);
 }
 
 const doRefreshToken = () => {
@@ -168,15 +128,7 @@ const doRefreshToken = () => {
       token: storageService.getItem(LOCAL_STORAGE_KEYS.REFRESH_TOKEN)
     })
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response.json()
-        .then(e => {
-          throw new Error(e.message);
-        });
-    });
+    .then(checkResponse);
 }
 
 const getUser = () => {
@@ -187,15 +139,7 @@ const getUser = () => {
       'Content-Type': 'application/json'
     },
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response.json()
-        .then(e => {
-          throw new Error(e.message);
-        });
-    });
+    .then(checkResponse);
 }
 
 const updateUser = (data: IUserRegister) => {
@@ -207,15 +151,7 @@ const updateUser = (data: IUserRegister) => {
     },
     body: JSON.stringify(data)
   })
-    .then(response => {
-      if (response.ok) {
-        return response.json();
-      }
-      return response.json()
-        .then(e => {
-          throw new Error(e.message);
-        });
-    });
+    .then(checkResponse);
 }
 
 

@@ -1,10 +1,6 @@
 import styles from './ProfilePage.module.css';
-import {
-  Button,
-  Input,
-  PasswordInput
-} from '@ya.praktikum/react-developer-burger-ui-components';
-import { ChangeEvent, useEffect, useState } from 'react';
+import { Button, Input, PasswordInput } from '@ya.praktikum/react-developer-burger-ui-components';
+import React, { ChangeEvent, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { userProfile } from '../../services/actions/userProfile';
 import { UPDATE_USER_DATA } from '../../services/reducers/userProfileSlice';
@@ -23,27 +19,14 @@ const ProfilePage = () => {
     dispatch(userProfile.getUser())
       .unwrap()
       .then(response => {
-        const {
-          name,
-          email
-        } = response.user;
-        dispatch(UPDATE_USER_DATA({
-          name,
-          email,
-        }));
-        setState({
-          ...state,
-          email,
-          name
-        });
+        const { name, email } = response.user;
+        dispatch(UPDATE_USER_DATA({ name, email }));
+        setState({ ...state, email, name });
       });
   }, []);
 
   const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    const {
-      name,
-      value
-    } = event.target;
+    const { name, value } = event.target;
     setState({
       ...state,
       [name]: value,
@@ -51,7 +34,9 @@ const ProfilePage = () => {
     setIsFormChanged(true);
   };
 
-  const saveBtnClickHandler = () => {
+  const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     const isValid = Object.values(state)
       .every(Boolean);
     if (!isValid) {
@@ -64,6 +49,7 @@ const ProfilePage = () => {
           name: response.user.name,
           email: response.user.email,
         }));
+        setIsFormChanged(false);
       });
   };
 
@@ -77,7 +63,7 @@ const ProfilePage = () => {
   };
 
   return (
-    <section className={styles.Root}>
+    <form className={styles.Root} onSubmit={handleSubmitForm}>
       <div className={styles.Form}>
         <Input
           icon={'EditIcon'}
@@ -109,12 +95,12 @@ const ProfilePage = () => {
           <Button type="secondary" size="medium" onClick={cancelBtnClickHandler}>
             Отмена
           </Button>
-          <Button type="primary" size="medium" onClick={saveBtnClickHandler}>
+          <Button type="primary" size="medium" htmlType={'submit'}>
             Сохранить
           </Button>
         </div>)}
       </div>
-    </section>
+    </form>
   );
 };
 
