@@ -1,37 +1,62 @@
-import { useEffect } from 'react';
+import {BrowserRouter as Router, Switch} from 'react-router-dom';
 import styles from './App.module.css';
 import AppHeader from 'components/app-header/AppHeader';
-import { NavItems } from 'constants/navItems';
-import AppMain from 'components/app-main/AppMain';
-import BurgerIngredients from 'components/burger-ingredients/BurgerIngredients';
-import BurgerConstructor from 'components/burger-constructor/BurgerConstructor';
+import {
+    ForgotPasswordPage,
+    LoginPage,
+    OrderFeedPage,
+    RegisterPage,
+    ResetPasswordPage
+} from '../../pages';
+import ProtectedRoute from '../protected-route/ProtectedRoute';
+import ModalSwitch from '../modal-switch/ModalSwitch';
+import { useAppDispatch } from '../../services/hooks';
+import { useEffect } from 'react';
 import { getItems } from '../../services/actions/burgerIngredients';
-import { useAppDispatch, useAppSelector } from '../../services/hooks';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
+import ProfileView from '../profile-view/ProfileView';
 
 function App() {
     const dispatch = useAppDispatch();
-    const {items} = useAppSelector(state => state.burgerIngredients);
-
     useEffect(() => {
         dispatch(getItems());
-    }, [])
-
+    }, []);
 
     return (
-        <div className={styles.main}>
-            <AppHeader activeItem={NavItems.CONSTRUCTOR} />
-            <AppMain>
-                {items.length ?
-                    (<section className={styles.ConstructorRoot}>
-                      <DndProvider backend={HTML5Backend}>
-                        <BurgerIngredients />
-                        <BurgerConstructor />
-                      </DndProvider>
-                    </section>) : <></>
-                }
-            </AppMain>
+        <div className={styles.Root}>
+            <Router>
+                <AppHeader/>
+                <Switch>
+                    <ProtectedRoute path="/profile">
+                        <ProfileView/>
+                    </ProtectedRoute>
+                </Switch>
+                <Switch>
+                    <ProtectedRoute path="/reset-password" exact>
+                        <ResetPasswordPage/>
+                    </ProtectedRoute>
+                </Switch>
+                <Switch>
+                    <ProtectedRoute path="/forgot-password" exact >
+                        <ForgotPasswordPage/>
+                    </ProtectedRoute>
+                </Switch>
+                <Switch>
+                    <ProtectedRoute path="/register" exact >
+                        <RegisterPage/>
+                    </ProtectedRoute>
+                </Switch>
+                <Switch>
+                    <ProtectedRoute path="/order-feed" exact >
+                        <OrderFeedPage/>
+                    </ProtectedRoute>
+                </Switch>
+                <Switch>
+                    <ProtectedRoute path="/login" exact >
+                        <LoginPage/>
+                    </ProtectedRoute>
+                </Switch>
+                <ModalSwitch/>
+            </Router>
         </div>
     );
 }

@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface IIngredientDetailsState {
+  _id: string,
   calories: number,
   carbohydrates: number,
   fat: number,
@@ -10,6 +11,7 @@ export interface IIngredientDetailsState {
 }
 
 const initialState: IIngredientDetailsState = {
+  _id: '',
   calories: 0,
   carbohydrates: 0,
   fat: 0,

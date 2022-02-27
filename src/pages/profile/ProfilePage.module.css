@@ -1,0 +1,16 @@
+.Root {
+    max-width: 480px;
+}
+
+.Form :global .input__container {
+    width: 100%;
+}
+
+.Form :global .input_size_default {
+    width: 100%;
+}
+
+.Controls {
+    display: flex;
+    justify-content: flex-end;
+}

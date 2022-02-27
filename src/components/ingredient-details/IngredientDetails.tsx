@@ -1,4 +1,6 @@
 import styles from './IngredientDetails.module.css';
+import { useAppSelector } from '../../services/hooks';
+import { useParams } from 'react-router-dom';
 
 type TIngredientDetailBlockProps = {
     name: string,
@@ -14,31 +16,31 @@ const DetailBlock = ({name, value}: TIngredientDetailBlockProps) => {
     );
 }
 
-export type TIngredientDetailsProps = {
-    calories: number,
-    carbohydrates: number,
-    fat: number,
-    proteins: number,
-    name: string,
-    image: string,
-}
+const IngredientDetails = () => {
+  const { ingredientId } = useParams<{ingredientId: string}>();
+  const item = useAppSelector(state => {
+    return state.burgerIngredients.items.find(item => item._id === ingredientId);
+  })
+  if (!item) {
+    return null;
+  }
+  const {calories, carbohydrates, fat, proteins, name, image_large: image} = item;
 
-const IngredientDetails = ({calories, carbohydrates, fat, proteins, name, image}: TIngredientDetailsProps) => {
-    return (
-            <section className={styles.Root}>
-                <div className="text text_type_main-large">Детали ингредиента</div>
-                <div className={styles.Content}>
-                    <img className="mb-4" src={image} alt={name} />
-                    <div className="mb-8 text text_type_main-medium">{name}</div>
-                    <div className={`${styles.DetailBlockRow} mb-5`}>
-                        <DetailBlock name="Калории,ккал" value={calories} />
-                        <DetailBlock name="Белки, г" value={proteins} />
-                        <DetailBlock name="Жиры, г" value={fat} />
-                        <DetailBlock name="Углеводы, г" value={carbohydrates} />
-                    </div>
-                </div>
-            </section>
-    );
+  return (
+    <section className={styles.Root}>
+      <div className={styles.Content}>
+        <div className={`${styles.Title} text text_type_main-large`}>Детали ингредиента</div>
+        <img className="mb-4" src={image} alt={name}/>
+        <div className="mb-8 text text_type_main-medium">{name}</div>
+        <div className={`${styles.DetailBlockRow} mb-5`}>
+          <DetailBlock name="Калории,ккал" value={calories}/>
+          <DetailBlock name="Белки, г" value={proteins}/>
+          <DetailBlock name="Жиры, г" value={fat}/>
+          <DetailBlock name="Углеводы, г" value={carbohydrates}/>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 export default IngredientDetails;
