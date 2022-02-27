@@ -6,10 +6,10 @@ import FillingItems from './filling-items/FillingItems';
 import OrderDetailsModal from './order-details-modal/OrderDetailsModal';
 import { useAppDispatch, useAppSelector } from '../../services/hooks';
 import { makeOrder } from '../../services/actions/orderDetails';
-import { IIngredient } from '../../services/reducers/burgerIngredientsSlice';
+import { IIngredient, IRawIngredient } from '../../services/reducers/burgerIngredientsSlice';
 import { useDrop } from 'react-dnd';
-import { DragAndDropTypes } from '../../constants/dragAndDropTypes';
-import { IngredientTypes } from '../../constants/ingredientTypes';
+import { DragAndDropType } from '../../constants/dragAndDropType';
+import { IngredientType } from '../../constants/ingredientType';
 import {
   ADD_BUN,
   ADD_INGREDIENT,
@@ -18,7 +18,7 @@ import {
 import { useHistory } from 'react-router-dom';
 import ROUTES from '../../constants/routes';
 
-const getOrderIdsFromState = ({ items, bun}: { items: IIngredient[], bun: IIngredient | null }) => {
+const getOrderIdsFromState = ({ items, bun}: { items: IIngredient[], bun: IRawIngredient | null }) => {
   const itemIds = items.map(item => item._id);
   const bunId = bun?._id;
   const orderIds = [bunId, bunId, ...itemIds].filter(Boolean);
@@ -42,7 +42,7 @@ const BurgerConstructor = () => {
       if (items.length === 0 || !bun) {
         return;
       }
-      const itemIds = getOrderIdsFromState({items,bun});
+      const itemIds = getOrderIdsFromState({items, bun});
 
       dispatch(makeOrder(itemIds))
         .then(() => dispatch(CLEAR_CONSTRUCTOR()));
@@ -55,7 +55,7 @@ const BurgerConstructor = () => {
         return;
       }
 
-      if (dropIngredient.type === IngredientTypes.BUN) {
+      if (dropIngredient.type === IngredientType.BUN) {
         dispatch(ADD_BUN(dropIngredient));
         return;
       }
@@ -64,7 +64,7 @@ const BurgerConstructor = () => {
     };
 
     const [{ isHover }, dropTarget] = useDrop({
-      accept: DragAndDropTypes.INGREDIENT,
+      accept: DragAndDropType.INGREDIENT,
       drop(item: { id: string }) {
         onDropHandler(item.id);
       },

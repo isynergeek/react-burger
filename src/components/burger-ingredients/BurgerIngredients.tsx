@@ -2,10 +2,10 @@ import IngredientsContent from "components/burger-ingredients/ingredients-conten
 import IngredientsTypeSelection
     from "components/burger-ingredients/ingredients-type-selection/IngredientsTypeSelection";
 import styles from './BurgerIngredients.module.css';
-import {IngredientTypes} from "constants/ingredientTypes";
+import {IngredientType} from "constants/ingredientType";
 import {SyntheticEvent, useCallback, useRef} from "react";
 import {useAppDispatch, useAppSelector} from "../../services/hooks";
-import { SET_CURRENT_TAB, IIngredient } from '../../services/reducers/burgerIngredientsSlice';
+import { SET_CURRENT_TAB, IRawIngredient } from '../../services/reducers/burgerIngredientsSlice';
 import { useHistory, useLocation } from 'react-router-dom';
 import ROUTES from '../../constants/routes';
 
@@ -16,7 +16,7 @@ type TPositionType = {
     contentPosition: number
 }
 
-type TGetTheNearestIngredientType = (positionData: TPositionType) => IngredientTypes
+type TGetTheNearestIngredientType = (positionData: TPositionType) => IngredientType
 
 const getTheNearestType: TGetTheNearestIngredientType = ({
                                                              mainPosition,
@@ -31,14 +31,14 @@ const getTheNearestType: TGetTheNearestIngredientType = ({
 
     const minDistance = Math.min(bunDistance, mainDistance, sauceDistance);
 
-    let type = IngredientTypes.BUN
+    let type = IngredientType.BUN
 
     if (minDistance === mainDistance) {
-        type = IngredientTypes.MAIN;
+        type = IngredientType.MAIN;
     }
 
     if (minDistance === sauceDistance) {
-        type = IngredientTypes.SAUCE
+        type = IngredientType.SAUCE
     }
     return type;
 }
@@ -51,7 +51,7 @@ const BurgerIngredients = () => {
     const ingredients = useAppSelector(state => state.burgerIngredients.items);
 
 
-    const selectItem = useCallback((item: IIngredient) => {
+    const selectItem = useCallback((item: IRawIngredient) => {
         history.push(`${ROUTES.INGREDIENTS}/${item._id}`, {background: location})
     }, []);
 
@@ -83,13 +83,13 @@ const BurgerIngredients = () => {
     };
 
     const scrollToSection = (section: string) => {
-        if (section === IngredientTypes.BUN && bunRef.current) {
+        if (section === IngredientType.BUN && bunRef.current) {
             bunRef.current.scrollIntoView({behavior: "smooth"})
         }
-        if (section === IngredientTypes.MAIN && mainRef.current) {
+        if (section === IngredientType.MAIN && mainRef.current) {
             mainRef.current.scrollIntoView({behavior: "smooth"})
         }
-        if (section === IngredientTypes.SAUCE && sauceRef.current) {
+        if (section === IngredientType.SAUCE && sauceRef.current) {
             sauceRef.current.scrollIntoView({behavior: "smooth"})
         }
     }
@@ -101,19 +101,19 @@ const BurgerIngredients = () => {
             <div className={`${styles.contentWrap} custom-scroll`} ref={contentRef} onScroll={getContentScroll}>
                 <IngredientsContent
                     title="Булки"
-                    ingredients={ingredients.filter(item => item.type === IngredientTypes.BUN)}
+                    ingredients={ingredients.filter(item => item.type === IngredientType.BUN)}
                     onItemClick={selectItem}
                     ref={bunRef} />
 
                 <IngredientsContent
                     title="Соусы"
-                    ingredients={ingredients.filter(item => item.type === IngredientTypes.SAUCE)}
+                    ingredients={ingredients.filter(item => item.type === IngredientType.SAUCE)}
                     onItemClick={selectItem}
                     ref={sauceRef} />
 
                 <IngredientsContent
                     title="Начинка"
-                    ingredients={ingredients.filter(item => item.type === IngredientTypes.MAIN)}
+                    ingredients={ingredients.filter(item => item.type === IngredientType.MAIN)}
                     onItemClick={selectItem}
                     ref={mainRef} />
             </div>

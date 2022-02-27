@@ -1,9 +1,9 @@
 import styles from './BunItem.module.css';
 import { ConstructorElement} from '@ya.praktikum/react-developer-burger-ui-components';
-import { IIngredient } from '../../../services/reducers/burgerIngredientsSlice';
+import { IRawIngredient } from '../../../services/reducers/burgerIngredientsSlice';
 
 type TBunItem = {
-    item: IIngredient | null,
+    item: IRawIngredient | null,
     type?: 'top' | 'bottom'
 }
 

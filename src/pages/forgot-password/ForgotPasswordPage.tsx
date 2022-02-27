@@ -1,8 +1,5 @@
 import styles from './ForgotPasswordPage.module.css';
-import {
-  Button,
-  Input,
-} from '@ya.praktikum/react-developer-burger-ui-components';
+import { Button, Input } from '@ya.praktikum/react-developer-burger-ui-components';
 import RegistrationLayout from '../../components/registration-layout/RegistrationLayout';
 import { Link, useHistory, useRouteMatch } from 'react-router-dom';
 import ROUTES from '../../constants/routes';
@@ -19,7 +16,7 @@ const ForgotPasswordPage = () => {
 
   const inputChangeHandler = (event: ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
-    setState({...state, email: value, errorMessage: '', isValid: true});
+    setState({ ...state, email: value, errorMessage: '', isValid: true });
   };
 
   const handleSubmitForm = (e: React.FormEvent<HTMLFormElement>) => {
@@ -27,19 +24,19 @@ const ForgotPasswordPage = () => {
 
     const { email } = state;
     if (!email) {
-      setState({...state, errorMessage: 'Ошибка ввода e-mail', isValid: false});
+      setState({ ...state, errorMessage: 'Ошибка ввода e-mail', isValid: false });
       return;
     }
     dispatch(userProfile.recover({ email }))
       .unwrap()
       .then(response => {
         if (response.success) {
-          history.push(ROUTES.RESET_PASSWORD, {from: path, email});
+          history.push(ROUTES.RESET_PASSWORD, { from: path, email });
         }
         throw new Error('Ошибка восстановления пароля');
       })
       .catch(e => {
-        setState({...state, errorMessage: e.message, isValid: false});
+        setState({ ...state, errorMessage: e.message, isValid: false });
       });
   };
 

@@ -1,7 +1,7 @@
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './ConstructorItem.module.css';
 import { DropTargetMonitor, useDrag, useDrop, XYCoord } from 'react-dnd';
-import { DragAndDropTypes } from '../../../constants/dragAndDropTypes';
+import { DragAndDropType } from '../../../constants/dragAndDropType';
 import { useRef } from 'react';
 import { IIngredient } from '../../../services/reducers/burgerIngredientsSlice';
 
@@ -23,7 +23,7 @@ function ConstructorItem({ item, moveCard, index,  id,  handleClose }: TConstruc
   const ref = useRef<HTMLDivElement>(null);
 
   const [{ handlerId }, drop] = useDrop({
-    accept: DragAndDropTypes.INGREDIENT_ORDER,
+    accept: DragAndDropType.INGREDIENT_ORDER,
     collect(monitor) {
       return {
         handlerId: monitor.getHandlerId(),
@@ -63,7 +63,7 @@ function ConstructorItem({ item, moveCard, index,  id,  handleClose }: TConstruc
     },
   });
   const [{ isDragging }, drag] = useDrag({
-    type: DragAndDropTypes.INGREDIENT_ORDER,
+    type: DragAndDropType.INGREDIENT_ORDER,
     item: () => {
       return {
         id,

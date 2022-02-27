@@ -112,13 +112,15 @@ export const userProfileSlice = createSlice({
         };
       })
       .addCase(userProfile.getUser.fulfilled, (state, action) => {
+        const name = action?.payload?.user?.name || '';
+        const email = action?.payload?.user?.email || '';
         return {
           request: false,
           error: false,
           errorMessage: '',
           user: {
-            name: action.payload.user.name,
-            email: action.payload.user.email
+            name,
+            email,
           },
           isAuth: true
         };

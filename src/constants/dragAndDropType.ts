@@ -1,4 +1,4 @@
-export enum DragAndDropTypes {
+export enum DragAndDropType {
   INGREDIENT = 'INGREDIENT',
   INGREDIENT_ORDER = 'INGREDIENT_ORDER'
 }
