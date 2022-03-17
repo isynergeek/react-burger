@@ -19,6 +19,9 @@ const ProfilePage = () => {
     dispatch(userProfile.getUser())
       .unwrap()
       .then(response => {
+        if (!response) {
+          return;
+        }
         const { name, email } = response.user;
         dispatch(UPDATE_USER_DATA({ name, email }));
         setState({ ...state, email, name });

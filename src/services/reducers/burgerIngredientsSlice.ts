@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { IngredientTypes } from '../../constants/ingredientTypes';
+import { IngredientType } from '../../constants/ingredientType';
 import { getItems } from '../actions/burgerIngredients';
 
-export interface IIngredientRaw {
+export interface IRawIngredient {
   calories: number,
   carbohydrates: number,
   fat: number,
@@ -17,16 +17,16 @@ export interface IIngredientRaw {
   _id: string,
 }
 
-export interface IIngredient extends IIngredientRaw {
+export interface IIngredient extends IRawIngredient {
   appId: string;
 }
 
 export interface IBurgerIngredientsState {
-  items: IIngredient[],
+  items: IRawIngredient[],
   itemsRequest: boolean,
   itemsError: boolean,
   itemsErrorMessage: string | undefined
-  currentTab: IngredientTypes
+  currentTab: IngredientType
 }
 
 const initialState: IBurgerIngredientsState = {
@@ -35,14 +35,14 @@ const initialState: IBurgerIngredientsState = {
   itemsError: false,
   itemsErrorMessage: '',
 
-  currentTab: IngredientTypes.BUN
+  currentTab: IngredientType.BUN
 };
 
 export const burgerIngredientsSlice = createSlice({
   name: 'BURGER_INGREDIENTS',
   initialState,
   reducers: {
-    ['SET_CURRENT_TAB'](state, action: PayloadAction<IngredientTypes>) {
+    ['SET_CURRENT_TAB'](state, action: PayloadAction<IngredientType>) {
       if (state.currentTab !== action.payload) {
         state.currentTab = action.payload;
       }

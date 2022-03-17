@@ -1,4 +1,4 @@
-export enum IngredientTypes {
+export enum IngredientType {
     BUN = 'bun',
     MAIN = 'main',
     SAUCE = 'sauce',

@@ -2,7 +2,7 @@ import styles from './IngredientCard.module.css';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { memo, MouseEventHandler } from 'react';
 import { useDrag } from 'react-dnd';
-import { DragAndDropTypes } from '../../../constants/dragAndDropTypes';
+import { DragAndDropType } from '../../../constants/dragAndDropType';
 import { useAppSelector } from '../../../services/hooks';
 
 type TIngredientCardProps = {
@@ -21,7 +21,7 @@ const IngredientCard = memo(({ id, image, price, name, itemClick }: TIngredientC
   const count = allIngredients.filter(item => item?._id === id).length;
 
   const [, dragRef] = useDrag({
-    type: DragAndDropTypes.INGREDIENT,
+    type: DragAndDropType.INGREDIENT,
     item: { id },
   });
 
