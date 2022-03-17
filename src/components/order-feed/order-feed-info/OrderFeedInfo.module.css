@@ -1,0 +1,17 @@
+.Root {
+
+}
+
+.Row {
+    display: flex;
+    column-gap: calc(var(--offset-base-size) * 9);
+}
+
+.Col {
+    flex: 1;
+    overflow-y: auto;
+}
+
+.Title {
+
+}

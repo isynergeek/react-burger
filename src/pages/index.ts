@@ -5,6 +5,7 @@ import ResetPasswordPage from './reset-password/ResetPasswordPage';
 import ProfilePage from './profile/ProfilePage';
 import OrdersPage from './order/OrdersPage';
 import OrderFeedPage from './order-feed/OrderFeedPage';
+import OrderInfoPage from './order-info/OrderInfoPage';
 
 export {
   LoginPage,
@@ -14,4 +15,5 @@ export {
   ProfilePage,
   OrdersPage,
   OrderFeedPage,
+  OrderInfoPage,
 };

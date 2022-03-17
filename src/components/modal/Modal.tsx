@@ -13,7 +13,6 @@ const modalRoot = document.getElementById('app-modals');
 
 const Modal = (props: TModalProps) => {
     const {children, close} = props;
-
     const closeHandler = () => {
         return close();
     };

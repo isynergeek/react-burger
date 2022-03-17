@@ -1,0 +1,36 @@
+.Root {
+    margin-bottom: 16px;
+    cursor: pointer;
+}
+
+.Card {
+    box-sizing: border-box;
+    border-radius: 40px;
+    overflow: hidden;
+    background: var(--color-black-1);
+    padding: calc(var(--offset-base-size) * 6);
+}
+
+.Card:hover {
+    box-shadow: 0 0 10px 0 rgba(104,97,214,1);
+    transition: 300ms;
+}
+
+.Row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.RowItem {
+    flex: 1;
+}
+
+.TimeText {
+    color: var(--text-color-2);
+    text-align: right;
+}
+
+.Price {
+    display: flex;
+}

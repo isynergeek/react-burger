@@ -1,0 +1,7 @@
+.Root {
+    display: flex;
+}
+
+.Root:first-child {
+    margin: 0;
+}
