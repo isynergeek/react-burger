@@ -1,0 +1,20 @@
+.Root {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Container {
+    flex: 0 1 1240px;
+}
+
+.Content {
+    display: flex;
+    flex-direction: row;
+    column-gap: calc(var(--offset-base-size) * 15);
+}
+.ContentContainer {
+    flex: 1;
+    height: calc(100vh - 200px);
+    overflow-y: auto;
+}

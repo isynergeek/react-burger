@@ -25,6 +25,7 @@ function App() {
         <div className={styles.Root}>
             <Router>
                 <AppHeader/>
+                <ModalSwitch/>
                 <Switch>
                     <ProtectedRoute path="/profile">
                         <ProfileView/>
@@ -46,7 +47,7 @@ function App() {
                     </ProtectedRoute>
                 </Switch>
                 <Switch>
-                    <ProtectedRoute path="/order-feed" exact >
+                    <ProtectedRoute path="/feed" exact >
                         <OrderFeedPage/>
                     </ProtectedRoute>
                 </Switch>
@@ -55,7 +56,6 @@ function App() {
                         <LoginPage/>
                     </ProtectedRoute>
                 </Switch>
-                <ModalSwitch/>
             </Router>
         </div>
     );

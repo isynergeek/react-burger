@@ -1,0 +1,19 @@
+.Root {
+
+}
+
+.List {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 335px;
+}
+
+.ListItem {
+    margin-right: calc(var(--offset-base-size) * 5);
+    margin-bottom: calc(var(--offset-base-size) * 2);
+}
+.ListItem:nth-child(10n),
+.ListItem:last-child {
+    margin-bottom: 0;
+}

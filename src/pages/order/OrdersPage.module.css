@@ -1,0 +1,5 @@
+.Root {
+    min-height: 400px;
+    height: calc(100vh - (210px + var(--offset-base-size) * 8));
+    overflow-y: auto;
+}

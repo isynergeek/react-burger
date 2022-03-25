@@ -1,0 +1,7 @@
+.Root {
+    min-height: 650px;
+    height: calc(100vh - (60px + var(--offset-base-size) * 8));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

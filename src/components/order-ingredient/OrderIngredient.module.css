@@ -1,0 +1,20 @@
+.Root {
+
+}
+
+.Container {
+    display: flex;
+    gap: calc(var(--offset-base-size) * 4);
+    align-items: center;
+    justify-content: space-around;
+}
+
+.Text {
+    flex: 2;
+}
+
+.Price {
+    flex: 1;
+    display: flex;
+    justify-content: flex-end;
+}

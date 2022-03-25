@@ -1,0 +1,30 @@
+.Root {
+
+}
+.Container {
+    width: 640px;
+}
+
+.TextCenter {
+    text-align: center;
+}
+
+.TextInactive {
+    color: var(--colors-button-inactive);
+}
+
+.TextRight {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.Row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.RowItem {
+    flex: 1;
+}
+
