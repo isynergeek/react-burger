@@ -2,6 +2,11 @@ import reducer, { UPDATE_USER_DATA } from './userProfileSlice';
 import { AnyAction } from 'redux';
 import { userProfile } from '../actions/userProfile';
 
+const userData = {
+  name: 'Name',
+  email: 'test@test.com'
+};
+
 const initialState = {
   request: false,
   error: false,
@@ -20,11 +25,6 @@ describe('Test UserProfileSlice', function () {
   });
 
   it('should update user data', () => {
-    const userData = {
-      email: 'test@test.com',
-      name: 'test name'
-    };
-
     const action = UPDATE_USER_DATA(userData);
     expect(reducer(initialState, action))
       .toEqual({
@@ -53,10 +53,6 @@ describe('Test UserProfileSlice', function () {
   });
 
   it('should register on fulfilled', () => {
-    const userData = {
-      name: 'test',
-      email: 'test@test.com'
-    };
     const action = {
       type: userProfile.register.fulfilled.type,
       payload: {
@@ -113,10 +109,6 @@ describe('Test UserProfileSlice', function () {
   });
 
   it('should login on fulfilled', () => {
-    const userData = {
-      name: 'test',
-      email: 'test@test.com'
-    };
     const action = {
       type: userProfile.login.fulfilled.type,
       payload: {
@@ -215,10 +207,7 @@ describe('Test UserProfileSlice', function () {
   });
 
   it('should get user on fulfilled', () => {
-    const userData = {
-      name: 'Name',
-      email: 'test@test.com'
-    };
+
     const action = {
       type: userProfile.getUser.fulfilled.type,
       payload: {

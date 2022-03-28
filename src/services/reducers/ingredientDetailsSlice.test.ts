@@ -1,6 +1,17 @@
 import reducer, {SET_DETAILS, REMOVE_DETAILS} from './ingredientDetailsSlice';
 import { AnyAction } from 'redux';
 
+
+const detail = {
+  _id: 'testId',
+  calories: 100,
+  carbohydrates: 200,
+  fat: 300,
+  image: 'http://test.com/test.jpg',
+  name: 'Test name',
+  proteins: 400
+};
+
 const initialState = {
   _id: '',
   calories: 0,
@@ -18,31 +29,12 @@ describe('Test IngredientDetailsSlice', () => {
   });
 
   it('should set details', () => {
-    const detail = {
-      _id: 'testId',
-      calories: 100,
-      carbohydrates: 200,
-      fat: 300,
-      image: 'http://test.com/test.jpg',
-      name: 'Test name',
-      proteins: 400
-    };
-
     expect(reducer(initialState, SET_DETAILS(detail))).toEqual({
       ...detail
     });
   });
 
   it('should remove details', () => {
-    const state = {
-      _id: 'testId',
-      calories: 100,
-      carbohydrates: 200,
-      fat: 300,
-      image: 'http://test.com/test.jpg',
-      name: 'Test name',
-      proteins: 400
-    };
-    expect(reducer(state, REMOVE_DETAILS)).toEqual({...initialState});
+    expect(reducer(detail, REMOVE_DETAILS)).toEqual({...initialState});
   })
 });

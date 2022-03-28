@@ -3,6 +3,21 @@ import { AnyAction } from 'redux';
 import { IngredientType } from '../../constants/ingredientType';
 import { getItems } from '../actions/burgerIngredients';
 
+const ingredient = {
+  calories: 100,
+  carbohydrates: 100,
+  fat: 100,
+  image: 'http://test.com/test.jpg',
+  image_large: 'http://test.com/test.jpg',
+  image_mobile: 'http://test.com/test.jpg',
+  name: 'test',
+  price: 1000,
+  proteins: 100,
+  type: 'sauce',
+  __v: 1,
+  _id: '1',
+};
+
 const initialState = {
   items: [],
   itemsRequest: false,
@@ -42,20 +57,6 @@ describe('Test BurgerIngredientsSlice', () => {
   });
 
   it('should get ingredients on fulfilled', () => {
-    const ingredient = {
-      calories: 100,
-      carbohydrates: 100,
-      fat: 100,
-      image: 'http://test.com/test.jpg',
-      image_large: 'http://test.com/test.jpg',
-      image_mobile: 'http://test.com/test.jpg',
-      name: 'test',
-      price: 1000,
-      proteins: 100,
-      type: 'sauce',
-      __v: 1,
-      _id: '1',
-    };
     const action = {
       type: getItems.fulfilled.type, payload: {
         data: [ingredient]

@@ -68,7 +68,6 @@ describe('Test OrderFeedReducer', () => {
           number: 1
         }
       ],
-
     };
 
     expect(orderFeedReducer(initialState, wsMessage(message)))
