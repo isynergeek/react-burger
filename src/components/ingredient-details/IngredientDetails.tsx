@@ -29,7 +29,7 @@ const IngredientDetails = () => {
   return (
     <section className={styles.Root}>
       <div className={styles.Content}>
-        <div className={`${styles.Title} text text_type_main-large`}>Детали ингредиента</div>
+        <div className={`text text_type_main-large`}>Детали ингредиента</div>
         <img className="mb-4" src={image} alt={name}/>
         <div className="mb-8 text text_type_main-medium">{name}</div>
         <div className={`${styles.DetailBlockRow} mb-5`}>
